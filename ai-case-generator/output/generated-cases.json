@@ -1,0 +1,1203 @@
+{
+  "scenarios": [
+    {
+      "case_id": "AI-LOGIN-001",
+      "module": "login_auth",
+      "title": "至少4个字符的中文场景标题",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/user/code",
+      "method": "POST",
+      "preconditions": [
+        "前置条件1"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {
+          "phone": "1880000"
+        },
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "login:code:1880000",
+          "assertion": "存在",
+          "expected": "6位数字"
+        }
+      ],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "风险标签"
+      ],
+      "source_rules": [
+        "RULE-LOGIN-CODE-REDIS"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-LOGIN-002",
+      "module": "login_auth",
+      "title": "错误验证码登录场景",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/user/login",
+      "method": "POST",
+      "preconditions": [
+        "前置条件2"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {},
+        "headers": {},
+        "body": {
+          "phone": "18800000000",
+          "code": "123456"
+        }
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "验证码不一致，请重新输入",
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "风险标签"
+      ],
+      "source_rules": [
+        "RULE-LOGIN-WRONG-CODE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-LOGIN-003",
+      "module": "login_auth",
+      "title": "正确验证码登录场景",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/user/login",
+      "method": "POST",
+      "preconditions": [
+        "前置条件3"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {},
+        "headers": {},
+        "body": {
+          "phone": "18800000000",
+          "code": "654321"
+        }
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [
+        {
+          "table": "tb_user",
+          "assertion": "存在授权信息",
+          "expected": "非空"
+        }
+      ],
+      "risk_tags": [
+        "风险标签"
+      ],
+      "source_rules": [
+        "RULE-LOGIN-SUCCESS"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-LOGIN-004",
+      "module": "login_auth",
+      "title": "未携带授权信息访问受保护接口场景",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/user/me",
+      "method": "GET",
+      "preconditions": [
+        "前置条件4"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 401,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": null,
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "风险标签"
+      ],
+      "source_rules": [
+        "RULE-AUTH-UNAUTHORIZED"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SHOP-001",
+      "module": "shop_query",
+      "title": "按ID查询已存在的商铺",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-SHOP-EXISTS"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": 1
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "cache:shop:{shopId}",
+          "assertion": "存在",
+          "expected": 1
+        }
+      ],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "缓存命中"
+      ],
+      "source_rules": [
+        "RULE-SHOP-EXISTS"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SHOP-002",
+      "module": "shop_query",
+      "title": "按ID查询不存在的商铺",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/shop/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-SHOP-NOT-FOUND"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": 999999
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "店铺不存在！",
+        "data_assertions": []
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "cache:shop:{shopId}",
+          "assertion": "不存在",
+          "expected": 0
+        }
+      ],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "缓存未命中"
+      ],
+      "source_rules": [
+        "RULE-SHOP-NOT-FOUND"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SHOP-003",
+      "module": "shop_query",
+      "title": "按名称查询商铺",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/of/name",
+      "method": "GET",
+      "preconditions": [
+        "RULE-SHOP-NAME"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {
+          "name": "103",
+          "current": 1
+        },
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [
+        {
+          "table": "tb_shop",
+          "assertion": "名称包含关键字103",
+          "expected": 1
+        }
+      ],
+      "risk_tags": [
+        "搜索功能"
+      ],
+      "source_rules": [
+        "RULE-SHOP-NAME"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SHOP-004",
+      "module": "shop_query",
+      "title": "按类型ID查询商铺",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/of/type",
+      "method": "GET",
+      "preconditions": [
+        "RULE-SHOP-TYPE"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {
+          "typeId": 1,
+          "current": 1
+        },
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [
+        {
+          "table": "tb_shop",
+          "assertion": "typeId=1",
+          "expected": 1
+        }
+      ],
+      "risk_tags": [
+        "类型查询"
+      ],
+      "source_rules": [
+        "RULE-SHOP-TYPE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SHOP-005",
+      "module": "shop_query",
+      "title": "缺少必填参数typeId时的错误响应",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/shop/of/type",
+      "method": "GET",
+      "preconditions": [
+        "RULE-SHOP-TYPE-MISSING"
+      ],
+      "request": {
+        "path_params": {},
+        "query_params": {
+          "current": 1
+        },
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 400,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": null,
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "必填参数缺失"
+      ],
+      "source_rules": [
+        "RULE-SHOP-TYPE-MISSING"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-DETAIL-001",
+      "module": "shop_detail_voucher",
+      "title": "商详接口查询已存在商铺，返回成功响应",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/detail/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-DETAIL-PUBLIC"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": 1
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data包含shopId、shopName、tags、vouchers"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "公开接口"
+      ],
+      "source_rules": [
+        "RULE-DETAIL-PUBLIC",
+        "RULE-DETAIL-AGGREGATE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-DETAIL-002",
+      "module": "shop_detail_voucher",
+      "title": "商详接口查询不存在商铺，返回成功响应和空列表",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/detail/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-VOUCHER-UNKNOWN-SHOP"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": 999999
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data包含shopId、shopName、tags、vouchers，且vouchers为空"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "未知商铺"
+      ],
+      "source_rules": [
+        "RULE-VOUCHER-UNKNOWN-SHOP"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-DETAIL-003",
+      "module": "shop_detail_voucher",
+      "title": "商详接口查询已存在商铺，路径参数传入非数字字符串返回400错误",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/shop/detail/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-PATH-LONG-INVALID"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": "abc"
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 400,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": null,
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "路径参数非法"
+      ],
+      "source_rules": [
+        "RULE-PATH-LONG-INVALID"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-DETAIL-004",
+      "module": "shop_detail_voucher",
+      "title": "商详接口查询已存在商铺，返回包含评分聚合数据",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/detail/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-DETAIL-PUBLIC",
+        "RULE-DETAIL-AGGREGATE"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": 1
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data包含shopId、shopName、tags、vouchers、blogs、reviews、recommendations、relatedShops"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "评分聚合"
+      ],
+      "source_rules": [
+        "RULE-DETAIL-PUBLIC",
+        "RULE-DETAIL-AGGREGATE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-DETAIL-005",
+      "module": "shop_detail_voucher",
+      "title": "商详接口查询已存在商铺，评分刷新RocketMQ发送失败时仍返回成功响应",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/shop/detail/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "RULE-RATING-MQ-DEGRADE"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": 1
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data包含shopId、shopName、tags、vouchers"
+        ]
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "评分刷新失败"
+      ],
+      "source_rules": [
+        "RULE-RATING-MQ-DEGRADE",
+        "RULE-RATING-CACHE-INVALIDATE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-001",
+      "module": "seckill_plus",
+      "title": "未登录用户尝试秒杀",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件1"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 401,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "Unauthorized",
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "未登录场景"
+      ],
+      "source_rules": [
+        "RULE-AUTH-UNAUTHORIZED"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-002",
+      "module": "seckill_plus",
+      "title": "无效的voucherId秒杀",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件2"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": "abc"
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 400,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "Invalid voucherId",
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "无效参数"
+      ],
+      "source_rules": [
+        "RULE-PATH-LONG-INVALID"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-003",
+      "module": "seckill_plus",
+      "title": "秒杀库存未初始化",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件3"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": "秒杀库存未初始化",
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": false
+        }
+      ],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "秒杀未初始化"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-STOCK-NOT-INITIALIZED"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-004",
+      "module": "seckill_plus",
+      "title": "正常秒杀成功",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件4"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": true
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "get",
+          "expected": 1
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "decrement",
+          "expected": -1
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "increment",
+          "expected": 1
+        }
+      ],
+      "risk_tags": [
+        "秒杀成功"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-SUCCESS"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-005",
+      "module": "seckill_plus",
+      "title": "重复下单",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件5"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "不能重复下单",
+        "data_assertions": []
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": 0
+        },
+        {
+          "key_pattern": "seckill:order:{voucherId}",
+          "assertion": "exists",
+          "expected": true
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "库存保持不变",
+          "expected": "与请求前一致"
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "库存保持不变",
+          "expected": "与请求前一致"
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "订单数保持不变且不新增订单",
+          "expected": "与请求前一致"
+        }
+      ],
+      "risk_tags": [
+        "重复下单"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-DUPLICATE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-CACHE-001",
+      "module": "cache_async",
+      "title": "验证缓存重建逻辑",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "存在未知的商铺ID"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": "999999"
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "cache:shop:{999999}",
+          "assertion": "exists",
+          "expected": false
+        },
+        {
+          "key_pattern": "lock:shop:{999999}",
+          "assertion": "exists",
+          "expected": true
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_shop",
+          "assertion": "exists",
+          "expected": true
+        }
+      ],
+      "risk_tags": [
+        "缓存重建"
+      ],
+      "source_rules": [
+        "RULE-SHOP-CACHE-REBUILD"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-CACHE-002",
+      "module": "cache_async",
+      "title": "验证评分刷新逻辑",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/shop/detail/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "存在商铺ID为1的商铺"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": "1"
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "cache:shop:{1}",
+          "assertion": "exists",
+          "expected": false
+        },
+        {
+          "key_pattern": "lock:shop:{1}",
+          "assertion": "exists",
+          "expected": true
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_shop",
+          "assertion": "exists",
+          "expected": true
+        }
+      ],
+      "risk_tags": [
+        "评分刷新"
+      ],
+      "source_rules": [
+        "RULE-RATING-MQ-DEGRADE",
+        "RULE-RATING-CACHE-INVALIDATE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-CACHE-003",
+      "module": "cache_async",
+      "title": "验证缓存重建逻辑（并发场景）",
+      "priority": "P1",
+      "test_type": "concurrency",
+      "endpoint": "/shop/{shopId}",
+      "method": "GET",
+      "preconditions": [
+        "存在商铺ID为1的商铺"
+      ],
+      "request": {
+        "path_params": {
+          "shopId": "1"
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "cache:shop:{1}",
+          "assertion": "exists",
+          "expected": false
+        },
+        {
+          "key_pattern": "lock:shop:{1}",
+          "assertion": "exists",
+          "expected": true
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_shop",
+          "assertion": "exists",
+          "expected": true
+        }
+      ],
+      "risk_tags": [
+        "缓存重建"
+      ],
+      "source_rules": [
+        "RULE-SHOP-CACHE-REBUILD"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-CONCURRENCY-001",
+      "module": "concurrency_consistency",
+      "title": "20个用户并发抢库存5时严格成功5、失败15，库存不为负",
+      "priority": "P1",
+      "test_type": "concurrency",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件1"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 13
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": 0
+        },
+        {
+          "key_pattern": "seckill:order:{voucherId}",
+          "assertion": "length",
+          "expected": 5
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "最终库存等于0且不为负",
+          "expected": 0
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_voucher_order",
+          "assertion": "count",
+          "expected": 5
+        },
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "最终库存等于0且不为负",
+          "expected": 0
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "订单数等于5且不超过初始库存5",
+          "expected": 5
+        }
+      ],
+      "risk_tags": [
+        "并发风险"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-NO-OVERSALE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-CONCURRENCY-002",
+      "module": "concurrency_consistency",
+      "title": "等待RocketMQ落库后Redis库存、MySQL库存、订单数和用户数一致",
+      "priority": "P1",
+      "test_type": "consistency",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件2"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 13
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": 0
+        },
+        {
+          "key_pattern": "seckill:order:{voucherId}",
+          "assertion": "length",
+          "expected": 5
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "最终库存等于0且不为负",
+          "expected": 0
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_voucher_order",
+          "assertion": "count",
+          "expected": 5
+        },
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "最终库存等于0且不为负",
+          "expected": 0
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "订单数等于5且不超过初始库存5",
+          "expected": 5
+        }
+      ],
+      "risk_tags": [
+        "一致性风险"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-NO-OVERSALE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    }
+  ]
+}

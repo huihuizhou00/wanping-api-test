@@ -1,0 +1,19 @@
+# 自动识别文本文件
+* text=auto
+
+# 源码和配置统一使用LF
+*.py text eol=lf
+*.java text eol=lf
+*.sh text eol=lf
+*.xml text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# AI测试资产和报告统一使用LF
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.log text eol=lf

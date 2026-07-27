@@ -1,0 +1,44 @@
+{
+  "total_cases": 24,
+  "schema_validation": {
+    "pass_count": 24,
+    "pass_rate": 1.0
+  },
+  "business_validation": {
+    "pass_count": 24,
+    "pass_rate": 1.0,
+    "global_errors": []
+  },
+  "human_review": {
+    "reviewed_count": 6,
+    "pending_count": 18,
+    "progress_rate": 0.25,
+    "accepted_count": 0,
+    "revised_count": 6,
+    "rejected_count": 0,
+    "adopted_count": 6,
+    "accepted_rate_among_reviewed": 0.0,
+    "revised_rate_among_reviewed": 1.0,
+    "rejected_rate_among_reviewed": 0.0,
+    "adoption_rate_among_reviewed": 1.0,
+    "accepted_share_of_total": 0.0,
+    "revised_share_of_total": 0.25,
+    "rejected_share_of_total": 0.0,
+    "adopted_share_of_total": 0.25
+  },
+  "automation": {
+    "selected_count": 6,
+    "mapped_count": 6,
+    "existing_count": 6,
+    "needs_update_count": 0,
+    "needs_new_count": 0,
+    "reuse_rate": 1.0,
+    "existing_share_of_total": 0.25
+  },
+  "execution": {
+    "not_run_count": 6,
+    "passed_count": 0,
+    "failed_count": 0,
+    "skipped_count": 0
+  }
+}

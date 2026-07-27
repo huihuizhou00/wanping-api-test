@@ -1,0 +1,111 @@
+# ==============================
+# 万评后端
+# ==============================
+
+base.url=http://127.0.0.1:8082
+api.prefix=
+request.timeout.ms=5000
+
+
+# ==============================
+# Redis
+# 与application-local.yaml保持一致
+# ==============================
+
+redis.host=127.0.0.1
+redis.port=6379
+redis.password=your_redis_password
+redis.database=1
+redis.timeout.ms=3000
+
+
+# ==============================
+# 登录测试数据
+# ==============================
+
+# 专用自动化测试手机号
+test.user.phone=18800000000
+
+# 等待验证码写入Redis的最长时间
+code.wait.timeout.ms=3000
+
+# 每次轮询间隔
+code.wait.interval.ms=100
+
+# ==============================
+# 商铺测试数据
+# ==============================
+
+# SQL初始化数据中：
+# id=1，name=103茶餐厅，typeId=1
+test.shop.id=1
+test.shop.name.keyword=103
+test.shop.type.id=1
+
+# 不存在的商铺ID
+test.shop.not-found.id=999999
+
+# ==============================
+# 秒杀与订单测试
+# ==============================
+
+test.user.id=1052
+
+# 原始同步秒杀专用券
+test.seckill.standard.voucher.id=11
+
+# 秒杀Plus异步建单专用券(旧版本冒烟测试使用)
+test.seckill.plus.voucher.id=12
+
+# 两张测试券创建时的初始库存
+test.seckill.initial.stock=2
+
+# 等待异步订单落库
+order.wait.timeout.ms=10000
+order.wait.interval.ms=200
+
+# ==============================
+# MySQL
+# 与application-local.yaml保持一致
+# ==============================
+
+db.driver-class-name=com.mysql.cj.jdbc.Driver
+db.url=jdbc:mysql://127.0.0.1:3306/dingping?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+db.username=dingping
+db.password=your_mysql_password
+
+
+# ==============================
+# 秒杀Plus测试数据
+# ==============================
+
+test.user.id=1052
+test.seckill.plus.voucher.id=12
+test.seckill.initial.stock=2
+
+# 异步订单最大等待时间
+order.wait.timeout.ms=10000
+
+# 每次数据库轮询间隔
+order.wait.interval.ms=200
+
+# ==============================
+# 秒杀Plus并发防超卖专项
+# ==============================
+
+test.seckill.oversell.voucher.id=13
+test.seckill.oversell.initial.stock=5
+
+# 18800000101～18800000120
+test.seckill.oversell.phone.prefix=188000001
+test.seckill.oversell.phone.start=1
+test.seckill.oversell.user.count=20
+
+test.seckill.oversell.concurrent.requests=20
+
+# 等待20个请求完成
+test.seckill.oversell.request.timeout.ms=20000
+
+# 等待5条异步订单全部落库
+test.seckill.oversell.order.timeout.ms=20000
+test.seckill.oversell.order.interval.ms=200

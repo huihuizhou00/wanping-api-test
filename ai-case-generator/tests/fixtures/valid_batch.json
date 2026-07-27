@@ -1,0 +1,44 @@
+{
+  "scenarios": [
+    {
+      "case_id": "AI-LOGIN-001",
+      "module": "login_auth",
+      "title": "非法手机号发送验证码",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/user/code",
+      "method": "POST",
+      "preconditions": ["后端和Redis正常"],
+      "request": {"path_params": {}, "query_params": {"phone": "123456"}, "headers": {}, "body": null},
+      "expected_http_status": 200,
+      "expected_business_result": {"success": false, "error_contains": "手机号格式错误", "data_assertions": []},
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": ["input-validation"],
+      "source_rules": ["RULE-LOGIN-INVALID-PHONE"]
+    },
+    {
+      "case_id": "AI-CONCURRENCY-001",
+      "module": "concurrency_consistency",
+      "title": "20用户并发抢购库存5不超卖",
+      "priority": "P0",
+      "test_type": "concurrency",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": ["券13 Redis和MySQL库存均为5", "20个用户Token有效"],
+      "request": {"path_params": {"voucherId": 13}, "query_params": {}, "headers": {"authorization": "<VALID_TOKEN>"}, "body": null},
+      "expected_http_status": 200,
+      "expected_business_result": {"success": true, "error_contains": null, "data_assertions": ["成功5个", "失败15个"]},
+      "redis_assertions": [
+        {"key_pattern": "seckill:stock:13", "assertion": "最终库存等于0且不为负", "expected": 0},
+        {"key_pattern": "seckill:order:13", "assertion": "集合人数等于5", "expected": 5}
+      ],
+      "mysql_assertions": [
+        {"table": "tb_voucher_order", "assertion": "订单数等于5且不超过库存5", "expected": 5},
+        {"table": "tb_seckill_voucher", "assertion": "库存等于0且不为负", "expected": 0}
+      ],
+      "risk_tags": ["oversell", "eventual-consistency"],
+      "source_rules": ["RULE-SECKILL-NO-OVERSALE"]
+    }
+  ]
+}

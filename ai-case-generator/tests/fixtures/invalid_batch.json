@@ -1,0 +1,21 @@
+{
+  "scenarios": [
+    {
+      "case_id": "AI-BAD-001",
+      "module": "login_auth",
+      "title": "发明接口",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/unknown/api",
+      "method": "GET",
+      "preconditions": [],
+      "request": {"path_params": {}, "query_params": {}, "headers": {}, "body": null},
+      "expected_http_status": 200,
+      "expected_business_result": {"success": true, "error_contains": null, "data_assertions": []},
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [],
+      "source_rules": ["RULE-NOT-EXIST"]
+    }
+  ]
+}

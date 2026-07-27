@@ -1,0 +1,697 @@
+========================================
+运行秒杀Plus防超卖并发专项
+========================================
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--------------------< [0;36mcom.wanping:wanping-api-test[0;1m >--------------------[m
+[[1;34mINFO[m] [1mBuilding Wanping API Test 1.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/zoey/workspace/wanping-api-test/target
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/zoey/workspace/wanping-api-test/src/main/resources
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.11.0:compile[m [1m(default-compile)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 2 resources
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.11.0:testCompile[m [1m(default-testCompile)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module! :source
+[[1;34mINFO[m] Compiling 21 source files with javac [debug target 1.8] to target/test-classes
+[[1;33mWARNING[m] 未与 -source 8 一起设置引导类路径
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:3.2.5:test[m [1m(default-test)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[[1;34mINFO[m]
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m]  T E S T S
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m] Running com.wanping.api.tests.[1mVoucherOversellConcurrencyTest[m
+[API-TEST] baseURI=http://127.0.0.1:8082
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000101
+QueryParams: {phone=18800000101}
+================ API RESPONSE ===============
+Status: 200 Cost: 439 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000101"}
+================ API RESPONSE ===============
+Status: 200 Cost: 22 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 38b1...149f
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1053,"nickName":"user_lghmz4iuuf","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000102
+QueryParams: {phone=18800000102}
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000102"}
+================ API RESPONSE ===============
+Status: 200 Cost: 16 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 22f7...d0b7
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1054,"nickName":"user_2v84hgeqc8","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000103
+QueryParams: {phone=18800000103}
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000103"}
+================ API RESPONSE ===============
+Status: 200 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 4c1d...1ef6
+================ API RESPONSE ===============
+Status: 200 Cost: 12 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1055,"nickName":"user_5la957172a","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000104
+QueryParams: {phone=18800000104}
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000104"}
+================ API RESPONSE ===============
+Status: 200 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 2ed9...cbb1
+================ API RESPONSE ===============
+Status: 200 Cost: 15 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1056,"nickName":"user_t6akxjraf9","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000105
+QueryParams: {phone=18800000105}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000105"}
+================ API RESPONSE ===============
+Status: 200 Cost: 21 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: b8ed...1d89
+================ API RESPONSE ===============
+Status: 200 Cost: 12 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1057,"nickName":"user_9le1cq4imw","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000106
+QueryParams: {phone=18800000106}
+================ API RESPONSE ===============
+Status: 200 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000106"}
+================ API RESPONSE ===============
+Status: 200 Cost: 15 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 8e68...65cf
+================ API RESPONSE ===============
+Status: 200 Cost: 12 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1058,"nickName":"user_mta31m0vi0","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000107
+QueryParams: {phone=18800000107}
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000107"}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: c58d...a4e3
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1059,"nickName":"user_gexnuxzhpe","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000108
+QueryParams: {phone=18800000108}
+================ API RESPONSE ===============
+Status: 200 Cost: 12 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000108"}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 3614...5730
+================ API RESPONSE ===============
+Status: 200 Cost: 14 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1060,"nickName":"user_hjpt0biqsd","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000109
+QueryParams: {phone=18800000109}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000109"}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: cfe1...28f5
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1061,"nickName":"user_m8ua2efcic","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000110
+QueryParams: {phone=18800000110}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000110"}
+================ API RESPONSE ===============
+Status: 200 Cost: 14 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: dfcf...f453
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1062,"nickName":"user_fwxmist5ux","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000111
+QueryParams: {phone=18800000111}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000111"}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 9373...7383
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1063,"nickName":"user_be9wj6qq4m","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000112
+QueryParams: {phone=18800000112}
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000112"}
+================ API RESPONSE ===============
+Status: 200 Cost: 15 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: d14a...375b
+================ API RESPONSE ===============
+Status: 200 Cost: 12 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1064,"nickName":"user_n6boyra2vr","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000113
+QueryParams: {phone=18800000113}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000113"}
+================ API RESPONSE ===============
+Status: 200 Cost: 14 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: b978...c7bb
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1065,"nickName":"user_5bzdro7bgt","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000114
+QueryParams: {phone=18800000114}
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000114"}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: c5f0...9976
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1066,"nickName":"user_av95pj8usq","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000115
+QueryParams: {phone=18800000115}
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000115"}
+================ API RESPONSE ===============
+Status: 200 Cost: 16 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 9627...05d0
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1067,"nickName":"user_53383mps3k","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000116
+QueryParams: {phone=18800000116}
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000116"}
+================ API RESPONSE ===============
+Status: 200 Cost: 15 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 9cb1...85e9
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1068,"nickName":"user_l3l3ltctz4","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000117
+QueryParams: {phone=18800000117}
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000117"}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 8bc1...8b5c
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1069,"nickName":"user_g0ko8eqbgv","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000118
+QueryParams: {phone=18800000118}
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000118"}
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: cb19...2876
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1070,"nickName":"user_cccl1ykl3e","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000119
+QueryParams: {phone=18800000119}
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000119"}
+================ API RESPONSE ===============
+Status: 200 Cost: 14 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: fb78...bb46
+================ API RESPONSE ===============
+Status: 200 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1071,"nickName":"user_60gx48o0on","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000120
+QueryParams: {phone=18800000120}
+================ API RESPONSE ===============
+Status: 200 Cost: 10 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000120"}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: 69f5...66bf
+================ API RESPONSE ===============
+Status: 200 Cost: 8 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1072,"nickName":"user_5dt6vig1cp","icon":""}}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 38b1...149f
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: d14a...375b
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 3614...5730
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 9cb1...85e9
+
+
+================ API REQUEST ================
+
+
+
+================ API REQUEST ================
+================ API REQUEST ================
+================ API REQUEST ================
+
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: c5f0...9976
+================ API REQUEST ================
+================ API REQUEST ================
+
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 69f5...66bf
+
+
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 22f7...d0b7
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: fb78...bb46
+================ API REQUEST ================
+================ API REQUEST ================
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: cfe1...28f5
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 8bc1...8b5c
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: c58d...a4e3
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 4c1d...1ef6
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: b8ed...1d89
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: dfcf...f453
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: cb19...2876
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 9627...05d0
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 9373...7383
+
+
+================ API REQUEST ================
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 2ed9...cbb1
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: b978...c7bb
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/13
+authorization: 8e68...65cf
+================ API RESPONSE ===============
+================ API RESPONSE ===============
+Status: 200 Cost: 74 ms Content-Type: application/json
+Status: 200 Cost: 74 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 74 ms Content-Type: application/json
+Status: 200 Cost: 73 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 74 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 76 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 79 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 81 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 83 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 85 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 83 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 85 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 90 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 94 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 98 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"库存不足"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 3070 ms Content-Type: application/json
+================ API RESPONSE ===============
+================ API RESPONSE ===============
+ResponseBody: {"success":true,"data":618420585625550910}
+=============================================
+Status: 200 Cost: 3070 ms Content-Type: application/json
+Status: 200 Cost: 3070 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":618420585625550907}
+================ API RESPONSE ===============
+ResponseBody: {"success":true,"data":618420585625550909}
+=============================================
+=============================================
+Status: 200 Cost: 3071 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":618420585625550911}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 3070 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":618420585625550908}
+=============================================
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.072 s -- in com.wanping.api.tests.[1mVoucherOversellConcurrencyTest[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] Results:
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1;32mTests run: 1, Failures: 0, Errors: 0, Skipped: 0[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  11.322 s
+[[1;34mINFO[m] Finished at: 2026-07-25T12:27:46+08:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+Report successfully generated to target/allure-report-concurrency
+
+并发专项Allure报告生成成功
+测试数量：1
+HTML报告：target/allure-report-concurrency
+归档文件：docs/test-results/allure-concurrency-report.zip
+
+查看报告：
+allure open target/allure-report-concurrency

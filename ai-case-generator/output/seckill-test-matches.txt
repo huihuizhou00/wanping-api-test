@@ -1,0 +1,182 @@
+./src/test/java/com/wanping/api/reporting/AllureEvidenceSupport.java:31:            long voucherId,
+./src/test/java/com/wanping/api/reporting/AllureEvidenceSupport.java:51:                "voucherId",
+./src/test/java/com/wanping/api/reporting/AllureEvidenceSupport.java:52:                voucherId
+./src/test/java/com/wanping/api/reporting/AllureEvidenceSupport.java:112:                "voucherId",
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:72:            long voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:93:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:101:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:109:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:117:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:128:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:150:                            voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:159:                            "恢复MySQL库存失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:160:                                    + voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:237:            long voucherId) {
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:259:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:282:            long voucherId) {
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:298:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:307:                                    + voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:328:            long voucherId)
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:343:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:369:        private final long voucherId;
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:376:                long voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:381:            this.voucherId = voucherId;
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:394:            return voucherId;
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:406:                    + ", voucherId=" + voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:415:     * voucherId必须是并发自动化专用券，
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:419:            long voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:436:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:443:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:450:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:457:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:464:                        voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:474:                                            + "'seckill-plus-order-topic:%' "
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:480:                            "%\"voucherId\":"
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:481:                                    + voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:504:                            voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:513:                            "并发测试券不存在或库存恢复失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:514:                                    + voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:529:                    "重置防超卖专用券失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:530:                            + voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:538:            long voucherId) {
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:552:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:564:                    "统计秒杀券订单数失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:565:                            + voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:572:            long voucherId) {
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:586:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:598:                    "统计秒杀券购买用户数失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:599:                            + voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:607:            long voucherId) {
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:624:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:641:                    "查询秒杀券订单ID失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:642:                            + voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:650:            long voucherId) {
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:667:                    voucherId
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:684:                    "查询秒杀券购买用户失败，voucherId="
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:685:                            + voucherId,
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:695:            long voucherId)
+./src/test/java/com/wanping/api/database/VoucherOrderRepository.java:703:                    voucherId
+./src/test/java/com/wanping/api/logging/ApiLogFilter.java:214:     * ExecutorService工作线程中，这些线程没有JUnit测试上下文，
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:19:import java.util.concurrent.CountDownLatch;
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:20:import java.util.concurrent.ExecutorService;
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:51:@Tag("concurrency")
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:64:    private long voucherId;
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:88:        voucherId =
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:171:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:176:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:197:                repository.findVoucherStock(voucherId),
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:203:                redisSupport.getStock(voucherId),
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:209:                repository.countByVoucher(voucherId),
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:215:                        .getPurchasedUserIds(voucherId)
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:228:        Map<String, Object> concurrencyParameters =
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:231:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:232:                "voucherId",
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:233:                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:236:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:241:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:246:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:251:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:256:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:261:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:266:        concurrencyParameters.put(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:273:                concurrencyParameters
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:275:        ExecutorService executor =
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:280:        CountDownLatch readyLatch =
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:281:                new CountDownLatch(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:285:        CountDownLatch startLatch =
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:286:                new CountDownLatch(1);
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:313:                                    orderClient.seckillPlus(
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:314:                                            voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:509:                    voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:515:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:520:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:525:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:530:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:535:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:540:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:545:                            voucherId
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:552:                    "voucherId",
+./src/test/java/com/wanping/api/tests/VoucherOversellConcurrencyTest.java:553:                    voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:65:    private static long voucherId;
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:95:        voucherId =
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:115:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:120:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:129:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:137:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:147:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:171:                        .seckillPlusWithoutToken(
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:172:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:181:     * 非数字voucherId在进入业务层前失败。
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:189:                        .seckillPlusWithRawVoucherId(
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:197:                "非数字voucherId应返回HTTP 400，响应体："
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:203:     * Redis库存未初始化时，
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:214:                orderClient.seckillPlus(
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:221:                "秒杀库存未初始化"
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:242:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:248:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:255:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:261:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:267:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:275:                orderClient.seckillPlus(
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:276:                        voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:311:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:317:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:324:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:330:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:341:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:361:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:457:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:463:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:470:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:476:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:482:                voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:490:                orderClient.seckillPlus(
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:491:                        voucherId,
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:497:                "不能重复下单"
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:502:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:508:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:515:                                voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:521:                        voucherId
+./src/test/java/com/wanping/api/tests/VoucherOrderApiTest.java:527:                voucherId,
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:73:            long voucherId,
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:80:                    stockKey(voucherId),
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:85:                    orderKey(voucherId),
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:91:                            voucherId,
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:102:                            voucherId
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:109:            long voucherId) {
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:116:                            stockKey(voucherId)
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:121:                        "Redis秒杀库存不存在，voucherId="
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:122:                                + voucherId
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:134:            long voucherId) {
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:140:                    orderKey(voucherId),
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:171:            long voucherId) {
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:174:                + voucherId;
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:178:            long voucherId) {
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:181:                + voucherId;
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:185:            long voucherId,
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:189:                + voucherId
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:195:            long voucherId) {
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:198:                + voucherId;
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:205:            long voucherId,
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:213:                    stockKey(voucherId),
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:222:                    orderKey(voucherId)
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:226:                    traceLogKey(voucherId)
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:232:                                voucherId,
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:241:            long voucherId) {
+./src/test/java/com/wanping/api/support/SeckillRedisSupport.java:248:                            orderKey(voucherId)
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:18:    public Response seckillPlus(
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:19:            long voucherId,
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:28:                        "voucherId",
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:29:                        voucherId
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:33:                        "/voucher-order/seckill-plus/{voucherId}"
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:43:    public Response seckillPlusWithoutToken(
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:44:            long voucherId) {
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:48:                        "voucherId",
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:49:                        voucherId
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:53:                        "/voucher-order/seckill-plus/{voucherId}"
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:61:     * 使用原始字符串作为voucherId，
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:64:    public Response seckillPlusWithRawVoucherId(
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:65:            String voucherId,
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:74:                        "voucherId",
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:75:                        voucherId
+./src/test/java/com/wanping/api/client/VoucherOrderClient.java:79:                        "/voucher-order/seckill-plus/{voucherId}"

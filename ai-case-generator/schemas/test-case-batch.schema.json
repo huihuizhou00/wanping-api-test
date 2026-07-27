@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wanping.local/schemas/test-case-batch.schema.json",
+  "title": "Wanping AI Generated Test Case Batch",
+  "type": "object",
+  "required": [
+    "scenarios"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/scenario"
+      }
+    }
+  },
+  "$defs": {
+    "jsonValue": {
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null",
+        "array",
+        "object"
+      ]
+    },
+    "request": {
+      "type": "object",
+      "required": [
+        "path_params",
+        "query_params",
+        "headers",
+        "body"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path_params": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        },
+        "query_params": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        },
+        "body": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        }
+      }
+    },
+    "businessResult": {
+      "type": "object",
+      "required": [
+        "success",
+        "error_contains",
+        "data_assertions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "error_contains": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_assertions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "redisAssertion": {
+      "type": "object",
+      "required": [
+        "key_pattern",
+        "assertion",
+        "expected"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "key_pattern": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assertion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected": {
+          "$ref": "#/$defs/jsonValue"
+        }
+      }
+    },
+    "mysqlAssertion": {
+      "type": "object",
+      "required": [
+        "table",
+        "assertion",
+        "expected"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "table": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assertion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected": {
+          "$ref": "#/$defs/jsonValue"
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "module",
+        "title",
+        "priority",
+        "test_type",
+        "endpoint",
+        "method",
+        "preconditions",
+        "request",
+        "expected_http_status",
+        "expected_business_result",
+        "redis_assertions",
+        "mysql_assertions",
+        "risk_tags",
+        "source_rules"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^AI-[A-Z]+-[0-9]{3}$"
+        },
+        "module": {
+          "type": "string",
+          "enum": [
+            "login_auth",
+            "shop_query",
+            "shop_detail_voucher",
+            "seckill_plus",
+            "cache_async",
+            "concurrency_consistency"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 120
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "P0",
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        "test_type": {
+          "type": "string",
+          "enum": [
+            "positive",
+            "negative",
+            "boundary",
+            "concurrency",
+            "reliability",
+            "security",
+            "consistency"
+          ]
+        },
+        "endpoint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "request": {
+          "$ref": "#/$defs/request"
+        },
+        "expected_http_status": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "expected_business_result": {
+          "$ref": "#/$defs/businessResult"
+        },
+        "redis_assertions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/redisAssertion"
+          }
+        },
+        "mysql_assertions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mysqlAssertion"
+          }
+        },
+        "risk_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "source_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

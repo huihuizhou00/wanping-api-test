@@ -1,0 +1,54 @@
+# ==============================
+# Python
+# ==============================
+ai-case-generator/.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==============================
+# 本地密钥和配置
+# ==============================
+ai-case-generator/.env
+ai-case-generator/.env.*
+!ai-case-generator/.env.example
+src/test/resources/config/test.properties
+
+# ==============================
+# Maven与测试报告
+# ==============================
+target/
+**/target/
+allure-results/
+allure-report/
+
+# ==============================
+# AI生成过程中的临时文件
+# 保留正式JSON、CSV和Markdown结果
+# ==============================
+ai-case-generator/output/raw/
+ai-case-generator/output/test-logs/
+ai-case-generator/output/*.log
+
+# ==============================
+# IDE与操作系统
+# ==============================
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+# 历史修复备份和中间输出快照
+ai-case-generator/backup-before-*/
+ai-case-generator/output-before-*/
+*.rej
+*.orig
+
+# 历史备份及旧生成结果
+/ai-case-generator/backup-before-*/
+/ai-case-generator/output-before-*/
+
+# output目录内的人工过程备份
+/ai-case-generator/output/*-before-*

@@ -1,0 +1,60 @@
+[
+  {
+    "module": "concurrency_consistency",
+    "case_id": "AI-CONCURRENCY-001",
+    "repair_attempt": 0,
+    "actor": "rule_engine",
+    "status": "accepted",
+    "errors_before": [
+      "业务[AI-CONCURRENCY-001]: 并发防超卖场景必须包含非负库存断言",
+      "业务[AI-CONCURRENCY-001]: 并发防超卖场景必须包含订单数不超过库存断言"
+    ],
+    "errors_after": [],
+    "changes": [
+      {
+        "field": "redis_assertions",
+        "action": "append_canonical_assertion",
+        "target": "seckill:stock:{voucherId}"
+      },
+      {
+        "field": "mysql_assertions",
+        "action": "append_canonical_assertion",
+        "target": "tb_seckill_voucher"
+      },
+      {
+        "field": "mysql_assertions",
+        "action": "append_canonical_assertion",
+        "target": "tb_voucher_order"
+      }
+    ]
+  },
+  {
+    "module": "concurrency_consistency",
+    "case_id": "AI-CONCURRENCY-002",
+    "repair_attempt": 0,
+    "actor": "rule_engine",
+    "status": "accepted",
+    "errors_before": [
+      "业务[AI-CONCURRENCY-002]: 并发防超卖场景必须包含非负库存断言",
+      "业务[AI-CONCURRENCY-002]: 并发防超卖场景必须包含订单数不超过库存断言"
+    ],
+    "errors_after": [],
+    "changes": [
+      {
+        "field": "redis_assertions",
+        "action": "append_canonical_assertion",
+        "target": "seckill:stock:{voucherId}"
+      },
+      {
+        "field": "mysql_assertions",
+        "action": "append_canonical_assertion",
+        "target": "tb_seckill_voucher"
+      },
+      {
+        "field": "mysql_assertions",
+        "action": "append_canonical_assertion",
+        "target": "tb_voucher_order"
+      }
+    ]
+  }
+]

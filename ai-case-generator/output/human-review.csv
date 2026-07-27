@@ -1,0 +1,25 @@
+﻿case_id,module,title,priority,test_type,endpoint,method,source_rules,review_status,review_comment,executable,automation_priority,test_data_ready,redis_assertion_ready,mysql_assertion_ready,selected_for_automation
+AI-LOGIN-001,login_auth,至少4个字符的中文场景标题,P1,positive,/user/code,POST,RULE-LOGIN-CODE-REDIS,,,,,,,,
+AI-LOGIN-002,login_auth,错误验证码登录场景,P1,negative,/user/login,POST,RULE-LOGIN-WRONG-CODE,,,,,,,,
+AI-LOGIN-003,login_auth,正确验证码登录场景,P1,positive,/user/login,POST,RULE-LOGIN-SUCCESS,,,,,,,,
+AI-LOGIN-004,login_auth,未携带授权信息访问受保护接口场景,P1,negative,/user/me,GET,RULE-AUTH-UNAUTHORIZED,,,,,,,,
+AI-SHOP-001,shop_query,按ID查询已存在的商铺,P1,positive,/shop/{shopId},GET,RULE-SHOP-EXISTS,,,,,,,,
+AI-SHOP-002,shop_query,按ID查询不存在的商铺,P1,negative,/shop/{shopId},GET,RULE-SHOP-NOT-FOUND,,,,,,,,
+AI-SHOP-003,shop_query,按名称查询商铺,P1,positive,/shop/of/name,GET,RULE-SHOP-NAME,,,,,,,,
+AI-SHOP-004,shop_query,按类型ID查询商铺,P1,positive,/shop/of/type,GET,RULE-SHOP-TYPE,,,,,,,,
+AI-SHOP-005,shop_query,缺少必填参数typeId时的错误响应,P1,negative,/shop/of/type,GET,RULE-SHOP-TYPE-MISSING,,,,,,,,
+AI-DETAIL-001,shop_detail_voucher,商详接口查询已存在商铺，返回成功响应,P1,positive,/shop/detail/{shopId},GET,RULE-DETAIL-PUBLIC|RULE-DETAIL-AGGREGATE,,,,,,,,
+AI-DETAIL-002,shop_detail_voucher,商详接口查询不存在商铺，返回成功响应和空列表,P1,positive,/shop/detail/{shopId},GET,RULE-VOUCHER-UNKNOWN-SHOP,,,,,,,,
+AI-DETAIL-003,shop_detail_voucher,商详接口查询已存在商铺，路径参数传入非数字字符串返回400错误,P1,negative,/shop/detail/{shopId},GET,RULE-PATH-LONG-INVALID,,,,,,,,
+AI-DETAIL-004,shop_detail_voucher,商详接口查询已存在商铺，返回包含评分聚合数据,P1,positive,/shop/detail/{shopId},GET,RULE-DETAIL-PUBLIC|RULE-DETAIL-AGGREGATE,,,,,,,,
+AI-DETAIL-005,shop_detail_voucher,商详接口查询已存在商铺，评分刷新RocketMQ发送失败时仍返回成功响应,P1,negative,/shop/detail/{shopId},GET,RULE-RATING-MQ-DEGRADE|RULE-RATING-CACHE-INVALIDATE,,,,,,,,
+AI-SECKILL-001,seckill_plus,未登录用户尝试秒杀,P1,negative,/voucher-order/seckill-plus/{voucherId},POST,RULE-AUTH-UNAUTHORIZED,revised,无需业务数据，验证未登录请求被鉴权拦截,yes,P0,yes,n/a,n/a,yes
+AI-SECKILL-002,seckill_plus,无效的voucherId秒杀,P1,negative,/voucher-order/seckill-plus/{voucherId},POST,RULE-PATH-LONG-INVALID,revised,使用有效Token验证非数字voucherId返回HTTP 400,yes,P0,no,n/a,n/a,yes
+AI-SECKILL-003,seckill_plus,秒杀库存未初始化,P1,negative,/voucher-order/seckill-plus/{voucherId},POST,RULE-SECKILL-STOCK-NOT-INITIALIZED,revised,删除对应Redis库存Key后验证库存未初始化,yes,P0,no,yes,n/a,yes
+AI-SECKILL-004,seckill_plus,正常秒杀成功,P1,positive,/voucher-order/seckill-plus/{voucherId},POST,RULE-SECKILL-SUCCESS,revised,初始化券12库存并验证Redis预扣及MySQL订单落库,yes,P0,no,yes,yes,yes
+AI-SECKILL-005,seckill_plus,重复下单,P1,negative,/voucher-order/seckill-plus/{voucherId},POST,RULE-SECKILL-DUPLICATE,revised,先成功下单，再验证重复请求不产生额外副作用,yes,P0,no,yes,yes,yes
+AI-CACHE-001,cache_async,验证缓存重建逻辑,P1,positive,/shop/{shopId},GET,RULE-SHOP-CACHE-REBUILD,,,,,,,,
+AI-CACHE-002,cache_async,验证评分刷新逻辑,P1,positive,/shop/detail/{shopId},GET,RULE-RATING-MQ-DEGRADE|RULE-RATING-CACHE-INVALIDATE,,,,,,,,
+AI-CACHE-003,cache_async,验证缓存重建逻辑（并发场景）,P1,concurrency,/shop/{shopId},GET,RULE-SHOP-CACHE-REBUILD,,,,,,,,
+AI-CONCURRENCY-001,concurrency_consistency,20个用户并发抢库存5时严格成功5、失败15，库存不为负,P1,concurrency,/voucher-order/seckill-plus/{voucherId},POST,RULE-SECKILL-NO-OVERSALE,revised,20用户并发抢库存5，验证成功5单及库存非负,yes,P0,no,yes,yes,yes
+AI-CONCURRENCY-002,concurrency_consistency,等待RocketMQ落库后Redis库存、MySQL库存、订单数和用户数一致,P1,consistency,/voucher-order/seckill-plus/{voucherId},POST,RULE-SECKILL-NO-OVERSALE,,,,,,,,

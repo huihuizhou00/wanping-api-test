@@ -1,0 +1,752 @@
+========================================
+运行万评23条常规自动化测试
+========================================
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--------------------< [0;36mcom.wanping:wanping-api-test[0;1m >--------------------[m
+[[1;34mINFO[m] [1mBuilding Wanping API Test 1.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/zoey/workspace/wanping-api-test/target
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/zoey/workspace/wanping-api-test/src/main/resources
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.11.0:compile[m [1m(default-compile)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 2 resources
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.11.0:testCompile[m [1m(default-testCompile)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module! :source
+[[1;34mINFO[m] Compiling 21 source files with javac [debug target 1.8] to target/test-classes
+[[1;33mWARNING[m] 未与 -source 8 一起设置引导类路径
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:3.2.5:test[m [1m(default-test)[m @ [36mwanping-api-test[0;1m ---[m
+[[1;34mINFO[m] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[[1;34mINFO[m]
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m]  T E S T S
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m] Running com.wanping.api.tests.[1mShopApiTest[m
+[API-TEST] baseURI=http://127.0.0.1:8082
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/of/type?typeId=1&current=1
+QueryParams: {typeId=1, current=1}
+================ API RESPONSE ===============
+Status: 200 Cost: 416 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"name":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","createTime":"2021-12-22T18:10:39","updateTime":"2022-01-13T17:32:19"},{"id":2,"name":"蔡馬洪涛烤肉·老北京铜锅涮羊肉","typeId":1,"images":"https://p0.meituan.net/bbia/c1870d570e73accbc9fee90b48faca41195272.jpg,http://p0.meituan.net/mogu/397e40c28fc87715b3d5435710a9f88d706914.jpg,https://qcloud.dpfile.com/pc/MZTdRDqCZdbPDUO0Hk6lZENRKzpKRF7kavrkEI99OxqBZTzPfIxa5E33gBfGouhFuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"拱宸桥/上塘","address":"上塘路1035号（中国工商银行旁）","x":120.151505,"y":30.333422,"avgPrice":85,"sold":2160,"comments":1460,"score":46,"openHours":"11:30-03:00","createTime":"2021-12-22T19:00:13","updateTime":"2022-01-11T16:12:26"},{"id":3,"name":"新白鹿餐厅(运河上街店)","typeId":1,"images":"https://p0.meituan.net/biztone/694233_1619500156517.jpeg,https://img.meituan.net/msmerchant/876ca8983f7395556eda9ceb064e6bc51840883.png,https://img.meituan.net/msmerchant/86a76ed53c28eff709a36099aefe28b51554088.png","area":"运河上街","address":"台州路2号运河上街购物中心F5","x":120.151954,"y":30.32497,"avgPrice":61,"sold":12035,"comments":8045,"score":47,"openHours":"10:30-21:00","createTime":"2021-12-22T19:10:05","updateTime":"2022-01-11T16:12:42"},{"id":4,"name":"Mamala(杭州远洋乐堤港店)","typeId":1,"images":"https://img.meituan.net/msmerchant/232f8fdf09050838bd33fb24e79f30f9606056.jpg,https://qcloud.dpfile.com/pc/rDe48Xe15nQOHCcEEkmKUp5wEKWbimt-HDeqYRWsYJseXNncvMiXbuED7x1tXqN4uzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"拱宸桥/上塘","address":"丽水路66号远洋乐堤港商城2期1层B115号","x":120.146659,"y":30.312742,"avgPrice":290,"sold":13519,"comments":9529,"score":49,"openHours":"11:00-22:00","createTime":"2021-12-22T19:17:15","updateTime":"2022-01-11T16:12:51"},{"id":5,"name":"海底捞火锅(水晶城购物中心店）","typeId":1,"images":"https://img.meituan.net/msmerchant/054b5de0ba0b50c18a620cc37482129a45739.jpg,https://img.meituan.net/msmerchant/59b7eff9b60908d52bd4aea9ff356e6d145920.jpg,https://qcloud.dpfile.com/pc/Qe2PTEuvtJ5skpUXKKoW9OQ20qc7nIpHYEqJGBStJx0mpoyeBPQOJE4vOdYZwm9AuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"上塘路458号水晶城购物中心F6","x":120.15778,"y":30.310633,"avgPrice":104,"sold":4125,"comments":2764,"score":49,"openHours":"10:00-07:00","createTime":"2021-12-22T19:20:58","updateTime":"2022-01-11T16:13:01"}]}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/1
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1,"name":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","createTime":"2021-12-22T18:10:39","updateTime":"2022-01-13T17:32:19"}}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/of/name?current=1
+QueryParams: {current=1}
+================ API RESPONSE ===============
+Status: 200 Cost: 38 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"name":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","createTime":"2021-12-22T18:10:39","updateTime":"2022-01-13T17:32:19"},{"id":2,"name":"蔡馬洪涛烤肉·老北京铜锅涮羊肉","typeId":1,"images":"https://p0.meituan.net/bbia/c1870d570e73accbc9fee90b48faca41195272.jpg,http://p0.meituan.net/mogu/397e40c28fc87715b3d5435710a9f88d706914.jpg,https://qcloud.dpfile.com/pc/MZTdRDqCZdbPDUO0Hk6lZENRKzpKRF7kavrkEI99OxqBZTzPfIxa5E33gBfGouhFuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"拱宸桥/上塘","address":"上塘路1035号（中国工商银行旁）","x":120.151505,"y":30.333422,"avgPrice":85,"sold":2160,"comments":1460,"score":46,"openHours":"11:30-03:00","createTime":"2021-12-22T19:00:13","updateTime":"2022-01-11T16:12:26"},{"id":3,"name":"新白鹿餐厅(运河上街店)","typeId":1,"images":"https://p0.meituan.net/biztone/694233_1619500156517.jpeg,https://img.meituan.net/msmerchant/876ca8983f7395556eda9ceb064e6bc51840883.png,https://img.meituan.net/msmerchant/86a76ed53c28eff709a36099aefe28b51554088.png","area":"运河上街","address":"台州路2号运河上街购物中心F5","x":120.151954,"y":30.32497,"avgPrice":61,"sold":12035,"comments":8045,"score":47,"openHours":"10:30-21:00","createTime":"2021-12-22T19:10:05","updateTime":"2022-01-11T16:12:42"},{"id":4,"name":"Mamala(杭州远洋乐堤港店)","typeId":1,"images":"https://img.meituan.net/msmerchant/232f8fdf09050838bd33fb24e79f30f9606056.jpg,https://qcloud.dpfile.com/pc/rDe48Xe15nQOHCcEEkmKUp5wEKWbimt-HDeqYRWsYJseXNncvMiXbuED7x1tXqN4uzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"拱宸桥/上塘","address":"丽水路66号远洋乐堤港商城2期1层B115号","x":120.146659,"y":30.312742,"avgPrice":290,"sold":13519,"comments":9529,"score":49,"openHours":"11:00-22:00","createTime":"2021-12-22T19:17:15","updateTime":"2022-01-11T16:12:51"},{"id":5,"name":"海底捞火锅(水晶城购物中心店）","typeId":1,"images":"https://img.meituan.net/msmerchant/054b5de0ba0b50c18a620cc37482129a45739.jpg,https://img.meituan.net/msmerchant/59b7eff9b60908d52bd4aea9ff356e6d145920.jpg,https://qcloud.dpfile.com/pc/Qe2PTEuvtJ5skpUXKKoW9OQ20qc7nIpHYEqJGBStJx0mpoyeBPQOJE4vOdYZwm9AuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"上塘路458号水晶城购物中心F6","x":120.15778,"y":30.310633,"avgPrice":104,"sold":4125,"comments":2764,"score":49,"openHours":"10:00-07:00","createTime":"2021-12-22T19:20:58","updateTime":"2022-01-11T16:13:01"},{"id":6,"name":"幸福里老北京涮锅（丝联店）","typeId":1,"images":"https://img.meituan.net/msmerchant/e71a2d0d693b3033c15522c43e03f09198239.jpg,https://img.meituan.net/msmerchant/9f8a966d60ffba00daf35458522273ca658239.jpg,https://img.meituan.net/msmerchant/ef9ca5ef6c05d381946fe4a9aa7d9808554502.jpg","area":"拱宸桥/上塘","address":"金华南路189号丝联166号","x":120.148603,"y":30.318618,"avgPrice":130,"sold":9531,"comments":7324,"score":46,"openHours":"11:00-13:50,17:00-20:50","createTime":"2021-12-22T19:24:53","updateTime":"2022-01-11T16:13:09"},{"id":7,"name":"炉鱼(拱墅万达广场店)","typeId":1,"images":"https://img.meituan.net/msmerchant/909434939a49b36f340523232924402166854.jpg,https://img.meituan.net/msmerchant/32fd2425f12e27db0160e837461c10303700032.jpg,https://img.meituan.net/msmerchant/f7022258ccb8dabef62a0514d3129562871160.jpg","area":"北部新城","address":"杭行路666号万达商业中心4幢2单元409室(铺位号4005)","x":120.124691,"y":30.336819,"avgPrice":85,"sold":2631,"comments":1320,"score":47,"openHours":"00:00-24:00","createTime":"2021-12-22T19:40:52","updateTime":"2022-01-11T16:13:19"},{"id":8,"name":"浅草屋寿司（运河上街店）","typeId":1,"images":"https://img.meituan.net/msmerchant/cf3dff697bf7f6e11f4b79c4e7d989e4591290.jpg,https://img.meituan.net/msmerchant/0b463f545355c8d8f021eb2987dcd0c8567811.jpg,https://img.meituan.net/msmerchant/c3c2516939efaf36c4ccc64b0e629fad587907.jpg","area":"运河上街","address":"拱墅区金华路80号运河上街B1","x":120.150526,"y":30.325231,"avgPrice":88,"sold":2406,"comments":1206,"score":46,"openHours":" 11:00-21:30","createTime":"2021-12-22T19:51:06","updateTime":"2022-01-11T16:13:25"},{"id":9,"name":"羊老三羊蝎子牛仔排北派炭火锅(运河上街店)","typeId":1,"images":"https://p0.meituan.net/biztone/163160492_1624251899456.jpeg,https://img.meituan.net/msmerchant/e478eb16f7e31a7f8b29b5e3bab6de205500837.jpg,https://img.meituan.net/msmerchant/6173eb1d18b9d70ace7fdb3f2dd939662884857.jpg","area":"运河上街","address":"台州路2号运河上街购物中心F5","x":120.150598,"y":30.325251,"avgPrice":101,"sold":2763,"comments":1363,"score":44,"openHours":"11:00-21:30","createTime":"2021-12-22T19:53:59","updateTime":"2022-01-11T16:13:34"},{"id":10,"name":"开乐迪KTV（运河上街店）","typeId":2,"images":"https://p0.meituan.net/joymerchant/a575fd4adb0b9099c5c410058148b307-674435191.jpg,https://p0.meituan.net/merchantpic/68f11bf850e25e437c5f67decfd694ab2541634.jpg,https://p0.meituan.net/dpdeal/cb3a12225860ba2875e4ea26c6d14fcc197016.jpg","area":"运河上街","address":"台州路2号运河上街购物中心F4","x":120.149093,"y":30.324666,"avgPrice":67,"sold":26891,"comments":902,"score":37,"openHours":"00:00-24:00","createTime":"2021-12-22T20:25:16","updateTime":"2021-12-22T20:25:16"}]}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/of/name?name=103&current=1
+QueryParams: {name=103, current=1}
+================ API RESPONSE ===============
+Status: 200 Cost: 21 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"name":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","createTime":"2021-12-22T18:10:39","updateTime":"2022-01-13T17:32:19"}]}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/999999
+================ API RESPONSE ===============
+Status: 200 Cost: 27 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"店铺不存在！"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/of/type?current=1
+QueryParams: {current=1}
+================ API RESPONSE ===============
+Status: 400 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m6[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.213 s -- in com.wanping.api.tests.[1mShopApiTest[m
+[[1;34mINFO[m] Running com.wanping.api.tests.[1mFrameworkSmokeTest[m
+[API-TEST] baseURI=http://127.0.0.1:8082
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.wanping.api.tests.[1mFrameworkSmokeTest[m
+[[1;34mINFO[m] Running com.wanping.api.tests.[1mVoucherOrderApiTest[m
+[API-TEST] baseURI=http://127.0.0.1:8082
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+================ API RESPONSE ===============
+Status: 200 Cost: 32 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 36 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 40 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 19 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 21 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+================ API RESPONSE ===============
+Status: 401 Cost: 16 ms Content-Type:
+ResponseBody:
+=============================================
+================ API RESPONSE ===============
+Status: 401 Cost: 21 ms Content-Type:
+ResponseBody:
+=============================================
+================ API RESPONSE ===============
+Status: 401 Cost: 25 ms Content-Type:
+ResponseBody:
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/invalid-id
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/invalid-id
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/invalid-id
+authorization: 65e4...00ac
+================ API RESPONSE ===============
+Status: 400 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/999999
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/999999
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/999999
+authorization: 65e4...00ac
+================ API RESPONSE ===============
+Status: 200 Cost: 21 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"秒杀库存未初始化"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 26 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"秒杀库存未初始化"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 29 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"秒杀库存未初始化"}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+authorization: 65e4...00ac
+================ API RESPONSE ===============
+Status: 200 Cost: 3025 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":618398565328224267}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 3032 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":618398565328224267}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 3037 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":618398565328224267}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+authorization: 65e4...00ac
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/voucher-order/seckill-plus/12
+authorization: 65e4...00ac
+================ API RESPONSE ===============
+Status: 200 Cost: 35 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"不能重复下单"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 41 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"不能重复下单"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 47 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"不能重复下单"}
+=============================================
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m5[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.266 s -- in com.wanping.api.tests.[1mVoucherOrderApiTest[m
+[[1;34mINFO[m] Running com.wanping.api.tests.[1mLoginApiTest[m
+[API-TEST] baseURI=http://127.0.0.1:8082
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+================ API RESPONSE ===============
+Status: 401 Cost: 12 ms Content-Type:
+ResponseBody:
+=============================================
+================ API RESPONSE ===============
+Status: 401 Cost: 15 ms Content-Type:
+ResponseBody:
+=============================================
+================ API RESPONSE ===============
+Status: 401 Cost: 19 ms Content-Type:
+ResponseBody:
+=============================================
+================ API RESPONSE ===============
+Status: 401 Cost: 23 ms Content-Type:
+ResponseBody:
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=123456
+QueryParams: {phone=123456}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=123456
+QueryParams: {phone=123456}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=123456
+QueryParams: {phone=123456}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=123456
+QueryParams: {phone=123456}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"手机号格式错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"手机号格式错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 21 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"手机号格式错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 24 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"手机号格式错误"}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+================ API RESPONSE ===============
+Status: 200 Cost: 23 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 28 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 31 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 34 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 16 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 19 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 22 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"验证码不一致，请重新输入"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"验证码不一致，请重新输入"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 24 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"验证码不一致，请重新输入"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 27 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"验证码不一致，请重新输入"}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/code?phone=18800000000
+QueryParams: {phone=18800000000}
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 16 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 23 ms Content-Type: application/json
+ResponseBody: {"success":true}
+=============================================
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+
+================ API REQUEST ================
+POST http://127.0.0.1:8082/user/login
+RequestBody: {"code":"******","phone":"18800000000"}
+================ API RESPONSE ===============
+Status: 200 Cost: 18 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 22 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 25 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 28 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":"******"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: b517...3d96
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: b517...3d96
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: b517...3d96
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/user/me
+authorization: b517...3d96
+================ API RESPONSE ===============
+Status: 200 Cost: 14 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1052,"nickName":"user_edvwo98u1o","icon":""}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1052,"nickName":"user_edvwo98u1o","icon":""}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 23 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1052,"nickName":"user_edvwo98u1o","icon":""}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 26 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"id":1052,"nickName":"user_edvwo98u1o","icon":""}}
+=============================================
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m5[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.450 s -- in com.wanping.api.tests.[1mLoginApiTest[m
+[[1;34mINFO[m] Running com.wanping.api.tests.[1mShopDetailApiTest[m
+[API-TEST] baseURI=http://127.0.0.1:8082
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/1
+================ API RESPONSE ===============
+Status: 200 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 20 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 23 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 26 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}]}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/999999
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/999999
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/999999
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/999999
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/999999
+================ API RESPONSE ===============
+Status: 200 Cost: 11 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 15 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 18 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 21 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[]}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 24 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":[]}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/invalid-id
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/invalid-id
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/invalid-id
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/invalid-id
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/voucher/list/invalid-id
+================ API RESPONSE ===============
+Status: 400 Cost: 13 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 16 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 19 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 22 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 25 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+================ API RESPONSE ===============
+Status: 200 Cost: 32 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 38 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 42 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 46 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 49 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/1
+================ API RESPONSE ===============
+Status: 200 Cost: 28 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 31 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 34 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 37 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+================ API RESPONSE ===============
+Status: 200 Cost: 39 ms Content-Type: application/json
+ResponseBody: {"success":true,"data":{"shopId":1,"shopName":"103茶餐厅","typeId":1,"images":"https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg","area":"大关","address":"金华路锦昌文华苑29号","x":120.149192,"y":30.316078,"avgPrice":80,"sold":4215,"comments":3035,"score":37,"openHours":"10:00-22:00","tags":[{"code":"******","name":"出餐快","source":"review","weight":85},{"code":"******","name":"销量4215","source":"base","weight":60},{"code":"******","name":"朋友聚餐","source":"review","weight":85},{"code":"******","name":"评论3035","source":"base","weight":70},{"code":"******","name":"适合约会","source":"blog","weight":80},{"code":"******","name":"评分3.7","source":"base","weight":90},{"code":"******","name":"环境舒服","source":"review","weight":85}],"vouchers":[{"id":1,"shopId":1,"title":"50元代金券","subTitle":"周一至周日均可使用","rules":"全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食","payValue":4750,"actualValue":5000,"type":0},{"id":11,"shopId":1,"title":"API自动化专用券-普通秒杀","subTitle":"仅用于普通秒杀接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":900,"actualValue":1000,"type":1,"stock":2,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":12,"shopId":1,"title":"API自动化专用券-秒杀Plus","subTitle":"仅用于秒杀Plus接口自动化","rules":"仅用于自动化测试，不用于真实业务","payValue":1800,"actualValue":2000,"type":1,"stock":1,"beginTime":"2026-07-24T17:57:41","endTime":"2026-08-23T17:58:41"},{"id":13,"shopId":1,"title":"API自动化专用券-并发防超卖","subTitle":"仅用于20用户并发防超卖测试","rules":"自动化专用数据","payValue":2700,"actualValue":3000,"type":1,"stock":5,"beginTime":"2026-07-24T20:33:23","endTime":"2026-08-23T20:34:23"}],"blogs":[{"id":5,"shopId":1,"userId":2,"title":"人均30\uD83D\uDCB0杭州这家港式茶餐厅我疯狂打call‼️","images":"/imgs/blogs/4/7/863cc302-d150-420d-a596-b16e9232a1a6.jpg,/imgs/blogs/11/12/8b37d208-9414-4e78-b065-9199647bb3e3.jpg,/imgs/blogs/4/1/fa74a6d6-3026-4cb7-b0b6-35abb1e52d11.jpg,/imgs/blogs/9/12/ac2ce2fb-0605-4f14-82cc-c962b8c86688.jpg,/imgs/blogs/4/0/26a7cd7e-6320-432c-a0b4-1b7418f45ec7.jpg,/imgs/blogs/15/9/cea51d9b-ac15-49f6-b9f1-9cf81e9b9c85.jpg","content":"又吃到一家好吃的茶餐厅\uD83C\uDF74环境是怀旧tvb港风\uD83D\uDCFA边吃边拍照片\uD83D\uDCF7几十种菜品均价都在20+\uD83D\uDCB0可以是很平价了！<br>·<br>店名：九记冰厅(远洋店)<br>地址：杭州市丽水路远洋乐堤港负一楼（溜冰场旁边）<br>·<br>✔️黯然销魂饭（38\uD83D\uDCB0）<br>这碗饭我吹爆！米饭上盖满了甜甜的叉烧 还有两颗溏心蛋\uD83C\uDF73每一粒米饭都裹着浓郁的酱汁 光盘了<br>·<br>✔️铜锣湾漏奶华（28\uD83D\uDCB0）<br>黄油吐司烤的脆脆的 上面洒满了可可粉\uD83C\uDF6B一刀切开 奶盖流心像瀑布一样流出来  满足<br>·<br>✔️神仙一口西多士士（16\uD83D\uDCB0）<br>简简单单却超级好吃！西多士烤的很脆 黄油味浓郁 面包体超级柔软 上面淋了炼乳<br>·<br>✔️怀旧五柳炸蛋饭（28\uD83D\uDCB0）<br>四个鸡蛋炸成蓬松的炸蛋！也太好吃了吧！还有大块鸡排 上淋了酸甜的酱汁 太合我胃口了！！<br>·<br>✔️烧味双拼例牌（66\uD83D\uDCB0）<br>选了烧鹅➕叉烧 他家烧腊品质真的惊艳到我！据说是每日广州发货 到店现烧现卖的黑棕鹅 每口都是正宗的味道！肉质很嫩 皮超级超级酥脆！一口爆油！叉烧肉也一点都不柴 甜甜的很入味 搭配梅子酱很解腻 ！<br>·<br>✔️红烧脆皮乳鸽（18.8\uD83D\uDCB0）<br>乳鸽很大只 这个价格也太划算了吧， 肉质很有嚼劲 脆皮很酥 越吃越香～<br>·<br>✔️大满足小吃拼盘（25\uD83D\uDCB0）<br>翅尖➕咖喱鱼蛋➕蝴蝶虾➕盐酥鸡<br>zui喜欢里面的咖喱鱼！咖喱酱香甜浓郁！鱼蛋很q弹～<br>·<br>✔️港式熊仔丝袜奶茶（19\uD83D\uDCB0）<br>小熊\uD83D\uDC3B造型的奶茶冰也太可爱了！颜值担当 很地道的丝袜奶茶 茶味特别浓郁～<br>·","likedCount":1,"commentCount":0,"createTime":"2021-12-28T20:57:49"}],"reviews":[{"id":1,"shopId":1,"userId":2,"userName":"可可今天不吃肉","userIcon":"/imgs/icons/kkjtbcr.jpg","overallScore":47,"tasteScore":46,"environmentScore":48,"serviceScore":47,"content":"上菜快，茶餐厅氛围比较轻松，适合朋友小聚。","tags":["环境舒服","出餐快","朋友聚餐"],"createTime":"2026-05-31T00:00:00"},{"id":2,"shopId":1,"userId":5,"userName":"可爱多","userIcon":"/imgs/icons/user5-icon.png","overallScore":45,"tasteScore":44,"environmentScore":45,"serviceScore":46,"content":"性价比不错，工作日中午也不算太挤。","tags":["性价比高","午餐友好"],"createTime":"2026-05-31T00:00:00"}],"reviewSummary":{"totalReviews":2,"averageScore":46,"recommendationRate":100,"topTags":["环境舒服","出餐快","朋友聚餐","性价比高","午餐友好"]},"extraInfo":{"fullAddress":"金华路锦昌文华苑29号","trafficTips":"建议优先地铁或网约车到店，导航至金华路锦昌文华苑29号","album":["https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg","https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg"],"serviceFacilities":["适合轻量到店","达人探店丰富","支持在线查看优惠"],"businessHoursNotice":"营业时间：10:00-22:00"},"recommendations":[{"type":"signatureDish","title":"50元代金券","reason":"评价口碑稳定，适合首次到店","highlight":"券后 4750 元，可抵 5000 元","badge":"招牌必点","tags":["高人气","到店常点"],"items":["50元代金券","API自动化专用券-普通秒杀"]},{"type":"recommendReason","title":"为什么推荐这家店","reason":"评价推荐率高，适合第一次来这家店时直接下决定。","highlight":"结合评价、达人内容和价格带综合判断","badge":"推荐理由","tags":["高推荐率","人均友好","达人常探"],"items":["环境舒服","出餐快","达人内容可辅助判断环境和出品"]},{"type":"rankingCard","title":"店铺口碑榜单","reason":"当前店铺在口碑、评价量和价格带上表现均衡","highlight":"大关商圈评分约3.7，评价量3035条","badge":"口碑榜","tags":["商圈口碑","评价量稳定"],"items":["人均 80 元","营业时间 10:00-22:00"]}],"relatedShops":[]}}
+=============================================
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/not-a-number
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/not-a-number
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/not-a-number
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/not-a-number
+
+================ API REQUEST ================
+GET http://127.0.0.1:8082/shop/detail/not-a-number
+================ API RESPONSE ===============
+Status: 400 Cost: 9 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 12 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 14 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 17 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+================ API RESPONSE ===============
+Status: 400 Cost: 19 ms Content-Type: application/json
+ResponseBody: {"success":false,"errorMsg":"请求参数错误"}
+=============================================
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m6[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.432 s -- in com.wanping.api.tests.[1mShopDetailApiTest[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] Results:
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1;32mTests run: 23, Failures: 0, Errors: 0, Skipped: 0[m
+[[1;34mINFO[m]
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  11.531 s
+[[1;34mINFO[m] Finished at: 2026-07-25T11:02:22+08:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+Allure测试结果数量：23
+========================================
+写入测试环境信息
+========================================
+========================================
+生成Allure HTML报告
+========================================
+Report successfully generated to target/allure-report
+
+========================================
+Allure报告生成成功
+========================================
+原始结果：target/allure-results
+HTML报告：target/allure-report
+归档文件：docs/test-results/allure-report.zip
+测试数量：23
+
+浏览报告：
+allure open target/allure-report

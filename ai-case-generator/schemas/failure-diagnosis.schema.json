@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wanping.local/schemas/failure-diagnosis.schema.json",
+  "title": "Wanping AI Failure Diagnosis",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "failure_id",
+    "diagnosis_summary",
+    "failure_layer",
+    "root_cause_tag",
+    "root_cause",
+    "evidence",
+    "confidence",
+    "troubleshooting_steps",
+    "human_review_required"
+  ],
+  "properties": {
+    "failure_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "diagnosis_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "failure_layer": {
+      "type": "string",
+      "enum": [
+        "application",
+        "middleware",
+        "cache",
+        "context",
+        "database",
+        "network",
+        "test_data",
+        "unknown"
+      ]
+    },
+    "root_cause_tag": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "root_cause": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "excerpt"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "excerpt": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "troubleshooting_steps": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "human_review_required": {
+      "type": "boolean"
+    }
+  }
+}

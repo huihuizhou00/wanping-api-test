@@ -1,0 +1,273 @@
+project: wanping-api-test
+source_scope:
+  - Existing Java API clients and automated tests
+  - test.properties dedicated test data
+  - Confirmed Redis, MySQL and RocketMQ behavior from regression testing
+
+modules:
+  login_auth:
+    name: 登录与鉴权
+    case_id_prefix: AI-LOGIN
+  shop_query:
+    name: 商铺查询
+    case_id_prefix: AI-SHOP
+  shop_detail_voucher:
+    name: 商详与优惠券
+    case_id_prefix: AI-DETAIL
+  seckill_plus:
+    name: 秒杀Plus
+    case_id_prefix: AI-SECKILL
+  cache_async:
+    name: 缓存与异步链路
+    case_id_prefix: AI-CACHE
+  concurrency_consistency:
+    name: 并发与一致性
+    case_id_prefix: AI-CONCURRENCY
+
+endpoints:
+  - id: API-USER-CODE
+    module: login_auth
+    method: POST
+    path: /user/code
+    auth_required: false
+    request:
+      query_params:
+        phone: required_string
+    rules:
+      - RULE-LOGIN-INVALID-PHONE
+      - RULE-LOGIN-CODE-REDIS
+
+  - id: API-USER-LOGIN
+    module: login_auth
+    method: POST
+    path: /user/login
+    auth_required: false
+    request:
+      body:
+        phone: required_string
+        code: required_string
+    rules:
+      - RULE-LOGIN-WRONG-CODE
+      - RULE-LOGIN-SUCCESS
+
+  - id: API-USER-ME
+    module: login_auth
+    method: GET
+    path: /user/me
+    auth_required: true
+    request:
+      headers:
+        authorization: required_for_success
+    rules:
+      - RULE-AUTH-UNAUTHORIZED
+      - RULE-LOGIN-CURRENT-USER
+
+  - id: API-SHOP-BY-ID
+    module: shop_query
+    method: GET
+    path: /shop/{shopId}
+    auth_required: false
+    request:
+      path_params:
+        shopId: long
+    rules:
+      - RULE-SHOP-EXISTS
+      - RULE-SHOP-NOT-FOUND
+      - RULE-SHOP-CACHE-REBUILD
+
+  - id: API-SHOP-BY-NAME
+    module: shop_query
+    method: GET
+    path: /shop/of/name
+    auth_required: false
+    request:
+      query_params:
+        name: optional_string
+        current: positive_integer
+    rules:
+      - RULE-SHOP-NAME
+      - RULE-SHOP-NAME-EMPTY
+
+  - id: API-SHOP-BY-TYPE
+    module: shop_query
+    method: GET
+    path: /shop/of/type
+    auth_required: false
+    request:
+      query_params:
+        typeId: required_integer
+        current: positive_integer
+    rules:
+      - RULE-SHOP-TYPE
+      - RULE-SHOP-TYPE-MISSING
+
+  - id: API-SHOP-DETAIL
+    module: shop_detail_voucher
+    method: GET
+    path: /shop/detail/{shopId}
+    auth_required: false
+    request:
+      path_params:
+        shopId: long
+    rules:
+      - RULE-DETAIL-PUBLIC
+      - RULE-DETAIL-AGGREGATE
+      - RULE-PATH-LONG-INVALID
+      - RULE-RATING-MQ-DEGRADE
+      - RULE-RATING-CACHE-INVALIDATE
+
+  - id: API-VOUCHER-LIST
+    module: shop_detail_voucher
+    method: GET
+    path: /voucher/list/{shopId}
+    auth_required: false
+    request:
+      path_params:
+        shopId: long
+    rules:
+      - RULE-VOUCHER-EXISTING-SHOP
+      - RULE-VOUCHER-UNKNOWN-SHOP
+      - RULE-PATH-LONG-INVALID
+
+  - id: API-SECKILL-PLUS
+    module: seckill_plus
+    method: POST
+    path: /voucher-order/seckill-plus/{voucherId}
+    auth_required: true
+    request:
+      path_params:
+        voucherId: long
+      headers:
+        authorization: required_for_success
+    rules:
+      - RULE-AUTH-UNAUTHORIZED
+      - RULE-PATH-LONG-INVALID
+      - RULE-SECKILL-STOCK-NOT-INITIALIZED
+      - RULE-SECKILL-SUCCESS
+      - RULE-SECKILL-DUPLICATE
+      - RULE-SECKILL-NO-OVERSALE
+
+business_rules:
+  - id: RULE-LOGIN-INVALID-PHONE
+    module: login_auth
+    statement: 非法手机号返回HTTP 200、success=false，错误包含“手机号格式错误”。
+
+  - id: RULE-LOGIN-CODE-REDIS
+    module: login_auth
+    statement: 合法手机号发送验证码返回HTTP 200、success=true；Redis DB1写入login:code:{phone}，值为6位数字并具有TTL。
+
+  - id: RULE-LOGIN-WRONG-CODE
+    module: login_auth
+    statement: 错误验证码登录返回HTTP 200、success=false，错误包含“验证码不一致，请重新输入”。
+
+  - id: RULE-LOGIN-SUCCESS
+    module: login_auth
+    statement: 正确验证码登录返回HTTP 200、success=true并返回非空Token；Token写入authorization请求头后可查询当前用户。
+
+  - id: RULE-AUTH-UNAUTHORIZED
+    module: login_auth
+    statement: 受保护接口未携带有效authorization时返回HTTP 401，且不得执行后续业务副作用。
+
+  - id: RULE-LOGIN-CURRENT-USER
+    module: login_auth
+    statement: GET /user/me携带有效Token返回success=true，data.id和data.nickName非空。
+
+  - id: RULE-SHOP-EXISTS
+    module: shop_query
+    statement: GET /shop/1返回HTTP 200、success=true，data.id=1且名称非空。
+
+  - id: RULE-SHOP-NOT-FOUND
+    module: shop_query
+    statement: 查询不存在商铺返回HTTP 200、success=false，错误包含“店铺不存在！”。
+
+  - id: RULE-SHOP-NAME
+    module: shop_query
+    statement: 按名称关键字查询返回HTTP 200、success=true，至少一个名称包含关键字。
+
+  - id: RULE-SHOP-NAME-EMPTY
+    module: shop_query
+    statement: name不传时返回第一页商铺，列表非空且数量不超过10。
+
+  - id: RULE-SHOP-TYPE
+    module: shop_query
+    statement: 按typeId查询返回HTTP 200、success=true，所有返回商铺typeId均与请求一致。
+
+  - id: RULE-SHOP-TYPE-MISSING
+    module: shop_query
+    statement: GET /shop/of/type缺少必填typeId时返回HTTP 400，与Token状态无关。
+
+  - id: RULE-DETAIL-PUBLIC
+    module: shop_detail_voucher
+    statement: 商详接口为公开接口，不携带Token查询已存在商铺仍返回HTTP 200、success=true。
+
+  - id: RULE-DETAIL-AGGREGATE
+    module: shop_detail_voucher
+    statement: 商详成功响应包含shopId、shopName、tags、vouchers、blogs、reviews、recommendations、relatedShops，集合字段不为null，已有商铺tags不为空。
+
+  - id: RULE-PATH-LONG-INVALID
+    module: shared
+    statement: Long路径参数传入非数字字符串时，在进入业务层前返回HTTP 400。
+
+  - id: RULE-VOUCHER-EXISTING-SHOP
+    module: shop_detail_voucher
+    statement: 商铺1优惠券列表返回success=true且非空，所有优惠券shopId=1。
+
+  - id: RULE-VOUCHER-UNKNOWN-SHOP
+    module: shop_detail_voucher
+    statement: 不存在商铺的优惠券查询返回HTTP 200、success=true和空列表。
+
+  - id: RULE-SECKILL-STOCK-NOT-INITIALIZED
+    module: seckill_plus
+    statement: Redis库存Key不存在时返回HTTP 200、success=false，错误包含“秒杀库存未初始化”，不得创建订单或扣减其他券库存。
+
+  - id: RULE-SECKILL-SUCCESS
+    module: seckill_plus
+    statement: 正常秒杀返回HTTP 200、success=true和正数orderId；Redis库存扣减1、用户进入seckill:order:{voucherId}；RocketMQ消费后MySQL订单落库且库存扣减1，Redis与MySQL库存一致。
+
+  - id: RULE-SECKILL-DUPLICATE
+    module: seckill_plus
+    statement: 同一用户对同一券重复秒杀返回HTTP 200、success=false，错误包含“不能重复下单”；订单数、Redis库存和MySQL库存均不再变化。
+
+  - id: RULE-SECKILL-NO-OVERSALE
+    module: concurrency_consistency
+    statement: 20个不同用户并发抢库存5时严格成功5、失败15；MySQL订单5，Redis与MySQL库存均为0且不为负数，不存在第6条订单。
+
+  - id: RULE-SHOP-CACHE-REBUILD
+    module: cache_async
+    statement: cache:shop:{shopId}不存在时应回源MySQL；商铺存在则重建逻辑过期缓存，商铺不存在则可写短期空值防穿透。
+
+  - id: RULE-RATING-MQ-DEGRADE
+    module: cache_async
+    statement: 商详评分刷新RocketMQ发送失败时只记录告警，商详主接口仍应成功返回。
+
+  - id: RULE-RATING-CACHE-INVALIDATE
+    module: cache_async
+    statement: 评分刷新完成后DeleteShopCacheNode可删除cache:shop:{shopId}，下一次GET /shop/{shopId}必须自动回源并重建，锁lock:shop:{shopId}最终释放。
+
+known_data:
+  existing_shop_id: 1
+  existing_shop_name_keyword: "103"
+  existing_shop_type_id: 1
+  unknown_id: 999999
+  regular_test_user_id: 1052
+  regular_test_phone: "18800000000"
+  seckill_plus_voucher_id: 12
+  seckill_plus_initial_stock: 2
+  concurrency_voucher_id: 13
+  concurrency_initial_stock: 5
+  concurrency_users: 20
+
+redis_keys:
+  login_code: login:code:{phone}
+  shop_cache: cache:shop:{shopId}
+  shop_lock: lock:shop:{shopId}
+  seckill_stock: seckill:stock:{voucherId}
+  seckill_order_set: seckill:order:{voucherId}
+  seckill_request: seckill:req:{voucherId}:{userId}
+
+mysql_tables:
+  - tb_user
+  - tb_shop
+  - tb_voucher
+  - tb_seckill_voucher
+  - tb_voucher_order

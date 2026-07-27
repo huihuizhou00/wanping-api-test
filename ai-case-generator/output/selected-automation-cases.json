@@ -1,0 +1,351 @@
+{
+  "selected_count": 6,
+  "selection_stage": "first_batch",
+  "case_ids": [
+    "AI-SECKILL-001",
+    "AI-SECKILL-002",
+    "AI-SECKILL-003",
+    "AI-SECKILL-004",
+    "AI-SECKILL-005",
+    "AI-CONCURRENCY-001"
+  ],
+  "scenarios": [
+    {
+      "case_id": "AI-SECKILL-001",
+      "module": "seckill_plus",
+      "title": "未登录用户尝试秒杀",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件1"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {},
+        "body": null
+      },
+      "expected_http_status": 401,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "Unauthorized",
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "未登录场景"
+      ],
+      "source_rules": [
+        "RULE-AUTH-UNAUTHORIZED"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-002",
+      "module": "seckill_plus",
+      "title": "无效的voucherId秒杀",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件2"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": "abc"
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 400,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "Invalid voucherId",
+        "data_assertions": []
+      },
+      "redis_assertions": [],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "无效参数"
+      ],
+      "source_rules": [
+        "RULE-PATH-LONG-INVALID"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-003",
+      "module": "seckill_plus",
+      "title": "秒杀库存未初始化",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件3"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": "秒杀库存未初始化",
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": false
+        }
+      ],
+      "mysql_assertions": [],
+      "risk_tags": [
+        "秒杀未初始化"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-STOCK-NOT-INITIALIZED"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-004",
+      "module": "seckill_plus",
+      "title": "正常秒杀成功",
+      "priority": "P1",
+      "test_type": "positive",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件4"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": true
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "get",
+          "expected": 1
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "decrement",
+          "expected": -1
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "increment",
+          "expected": 1
+        }
+      ],
+      "risk_tags": [
+        "秒杀成功"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-SUCCESS"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-SECKILL-005",
+      "module": "seckill_plus",
+      "title": "重复下单",
+      "priority": "P1",
+      "test_type": "negative",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件5"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 12
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": false,
+        "error_contains": "不能重复下单",
+        "data_assertions": []
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": 0
+        },
+        {
+          "key_pattern": "seckill:order:{voucherId}",
+          "assertion": "exists",
+          "expected": true
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "库存保持不变",
+          "expected": "与请求前一致"
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "库存保持不变",
+          "expected": "与请求前一致"
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "订单数保持不变且不新增订单",
+          "expected": "与请求前一致"
+        }
+      ],
+      "risk_tags": [
+        "重复下单"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-DUPLICATE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    },
+    {
+      "case_id": "AI-CONCURRENCY-001",
+      "module": "concurrency_consistency",
+      "title": "20个用户并发抢库存5时严格成功5、失败15，库存不为负",
+      "priority": "P1",
+      "test_type": "concurrency",
+      "endpoint": "/voucher-order/seckill-plus/{voucherId}",
+      "method": "POST",
+      "preconditions": [
+        "前置条件1"
+      ],
+      "request": {
+        "path_params": {
+          "voucherId": 13
+        },
+        "query_params": {},
+        "headers": {
+          "authorization": "<VALID_TOKEN>"
+        },
+        "body": null
+      },
+      "expected_http_status": 200,
+      "expected_business_result": {
+        "success": true,
+        "error_contains": null,
+        "data_assertions": [
+          "响应data断言"
+        ]
+      },
+      "redis_assertions": [
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "exists",
+          "expected": 0
+        },
+        {
+          "key_pattern": "seckill:order:{voucherId}",
+          "assertion": "length",
+          "expected": 5
+        },
+        {
+          "key_pattern": "seckill:stock:{voucherId}",
+          "assertion": "最终库存等于0且不为负",
+          "expected": 0
+        }
+      ],
+      "mysql_assertions": [
+        {
+          "table": "tb_voucher_order",
+          "assertion": "count",
+          "expected": 5
+        },
+        {
+          "table": "tb_seckill_voucher",
+          "assertion": "最终库存等于0且不为负",
+          "expected": 0
+        },
+        {
+          "table": "tb_voucher_order",
+          "assertion": "订单数等于5且不超过初始库存5",
+          "expected": 5
+        }
+      ],
+      "risk_tags": [
+        "并发风险"
+      ],
+      "source_rules": [
+        "RULE-SECKILL-NO-OVERSALE"
+      ],
+      "schema_valid": true,
+      "business_valid": true,
+      "validation_errors": [],
+      "business_review_status": "pending",
+      "review_comment": ""
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+total_cases: 24
+temperature: 0.0
+max_tokens: 12000
+max_retries: 2
+module_quotas:
+  login_auth: 4
+  shop_query: 5
+  shop_detail_voucher: 5
+  seckill_plus: 5
+  cache_async: 3
+  concurrency_consistency: 2

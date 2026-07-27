@@ -1,0 +1,25 @@
+用例编号,类型,模块,请求接口,测试场景,前置条件,请求参数或请求头,预期HTTP状态,预期业务结果,数据层预期,自动化测试类,自动化方法名,最新结果
+FRAME-001,框架冒烟,测试框架,无HTTP请求,加载RestAssured及测试配置,test.properties存在且配置合法,加载BaseTest配置,不适用,RestAssured基础配置加载成功,不涉及Redis或MySQL,FrameworkSmokeTest,shouldLoadRestAssuredConfiguration,通过
+LOGIN-001,接口测试,登录鉴权,GET /user/me,未携带Token查询当前用户,后端正常运行,不携带authorization请求头,401,请求被登录拦截器拒绝,不产生用户状态变化,LoginApiTest,shouldReturn401WhenQueryingCurrentUserWithoutToken,通过
+LOGIN-002,接口测试,登录鉴权,POST /user/code,非法手机号发送验证码,后端及Redis正常运行,非法phone参数,200,success=false且拒绝发送验证码,Redis中不应生成有效验证码,LoginApiTest,shouldRejectInvalidPhoneWhenSendingCode,通过
+LOGIN-003,接口测试,登录鉴权,POST /user/code,合法手机号发送验证码,测试手机号18800000000可用,phone=18800000000,200,success=true,Redis中login:code:18800000000保存6位验证码且具有TTL,LoginApiTest,shouldStoreSixDigitCodeInRedis,通过
+LOGIN-004,接口测试,登录鉴权,POST /user/login,错误验证码登录,测试手机号已请求验证码,提交错误code,200,success=false且不返回Token,Redis中不生成有效登录Token,LoginApiTest,shouldRejectWrongVerificationCode,通过
+LOGIN-005,接口测试,登录鉴权,POST /user/login及GET /user/me,合法验证码登录并查询当前用户,Redis中存在动态验证码,phone和正确code；后续携带authorization,200,登录返回Token且/user/me返回当前用户,Redis保存登录用户Hash并具有有效TTL,LoginApiTest,shouldLoginAndQueryCurrentUserWithToken,通过
+SHOP-001,接口测试,商铺查询,GET /shop/{id},查询已存在店铺,MySQL中存在店铺1,shopId=1,200,success=true且返回店铺1,缓存缺失时查询MySQL并自动重建cache:shop:1,ShopApiTest,shouldReturnShopWhenQueryingExistingId,通过
+SHOP-002,接口测试,商铺查询,GET /shop/{id},查询不存在店铺,MySQL中不存在测试店铺ID,shopId=999999,200,success=false且提示店铺不存在,不返回虚假店铺数据；可写入空值缓存防穿透,ShopApiTest,shouldReturnBusinessFailureWhenShopDoesNotExist,通过
+SHOP-003,接口测试,商铺查询,GET /shop/of/name,按名称关键词查询店铺,MySQL存在名称匹配数据,name=103且current=1,200,success=true且结果包含匹配店铺,查询结果来自MySQL分页查询,ShopApiTest,shouldFindShopByNameKeyword,通过
+SHOP-004,接口测试,商铺查询,GET /shop/of/name,名称为空时查询第一页,MySQL存在店铺数据,current=1且不传name,200,success=true且返回第一页店铺列表,不修改Redis和MySQL数据,ShopApiTest,shouldReturnFirstPageWhenNameIsNotProvided,通过
+SHOP-005,接口测试,商铺查询,GET /shop/of/type,按店铺类型查询,存在typeId=1的店铺,typeId=1且current=1,200,success=true且返回对应类型店铺,不传坐标时使用MySQL分页查询,ShopApiTest,shouldReturnShopsOfRequestedType,通过
+SHOP-006,接口测试,商铺查询,GET /shop/of/type,缺少必填typeId,current参数合法,current=1且缺少typeId,400,返回请求参数错误且不受Token状态干扰,不修改Redis和MySQL数据,ShopApiTest,shouldReturn400WhenTypeIdIsMissing,通过
+DETAIL-001,接口测试,商详聚合,GET /shop/detail/{shopId},未登录查询商铺详情,店铺1存在,shopId=1且不携带Token,200,success=true且返回商详数据,商详为公开接口；可能触发评分刷新异步任务,ShopDetailApiTest,shouldReturnShopDetailWithoutToken,通过
+DETAIL-002,接口测试,商详聚合,GET /shop/detail/{shopId},查询完整商详聚合,店铺1及关联数据存在,shopId=1,200,success=true且核心聚合字段完整,聚合店铺标签优惠券博客评论推荐及关联店铺数据,ShopDetailApiTest,shouldReturnCompleteShopDetailAggregate,通过
+DETAIL-003,接口测试,商详聚合,GET /shop/detail/{shopId},商铺ID为非数字字符串,后端正常运行,shopId=not-a-number,400,返回请求参数错误,不进入商详业务聚合,ShopDetailApiTest,shouldReturn400WhenShopDetailIdIsNotNumeric,通过
+DETAIL-004,接口测试,优惠券查询,GET /voucher/list/{shopId},查询已有店铺优惠券,店铺1存在并配置优惠券,shopId=1,200,success=true且返回优惠券列表,数据来自tb_voucher及秒杀券关联数据,ShopDetailApiTest,shouldReturnVouchersForExistingShop,通过
+DETAIL-005,接口测试,优惠券查询,GET /voucher/list/{shopId},查询未知店铺优惠券,测试店铺ID不存在,shopId=999999,200,success=true且返回空列表,不创建任何优惠券数据,ShopDetailApiTest,shouldReturnEmptyVoucherListForUnknownShop,通过
+DETAIL-006,接口测试,优惠券查询,GET /voucher/list/{shopId},店铺ID为非数字字符串,后端正常运行,shopId=invalid-id,400,返回请求参数错误,不执行数据库优惠券查询业务,ShopDetailApiTest,shouldReturn400WhenVoucherShopIdIsNotNumeric,通过
+SECKILL-001,接口测试,秒杀Plus,POST /voucher-order/seckill-plus/{voucherId},未登录用户请求秒杀,秒杀券12存在且有效,voucherId=12且不携带authorization,401,请求被登录拦截器拒绝,Redis库存和MySQL订单均不发生变化,VoucherOrderApiTest,shouldReturn401WhenSeckillPlusHasNoToken,通过
+SECKILL-002,接口测试,秒杀Plus,POST /voucher-order/seckill-plus/{voucherId},优惠券ID为非数字字符串,用户1052已登录,voucherId=invalid-id并携带有效Token,400,返回请求参数错误,Redis库存和MySQL订单均不发生变化,VoucherOrderApiTest,shouldReturn400WhenVoucherIdIsNotNumeric,通过
+SECKILL-003,接口测试,秒杀Plus,POST /voucher-order/seckill-plus/{voucherId},秒杀库存未初始化,用户1052已登录,voucherId=999999并携带有效Token,200,success=false且提示秒杀库存未初始化,不创建订单且不扣减券12库存,VoucherOrderApiTest,shouldFailWhenSeckillStockIsNotInitialized,通过
+SECKILL-004,接口测试,秒杀Plus,POST /voucher-order/seckill-plus/{voucherId},正常秒杀并异步创建订单,用户1052无券12历史订单且Redis和MySQL库存均为2,voucherId=12并携带有效Token,200,success=true且返回大于0的orderId,Redis库存2变1且用户进入已购集合；RocketMQ消费后MySQL订单落库且库存2变1,VoucherOrderApiTest,shouldCreateOrderThroughSeckillPlus,通过
+SECKILL-005,接口测试,秒杀Plus,POST /voucher-order/seckill-plus/{voucherId},同一用户重复秒杀,用户1052已成功购买券12且请求去重Key已过期,再次请求voucherId=12,200,success=false且提示不能重复下单,MySQL仍只有1条订单；Redis和MySQL库存均不再次扣减,VoucherOrderApiTest,shouldRejectDuplicateSeckillWithoutSideEffects,通过
+CONCURRENCY-001,并发专项,秒杀Plus并发,POST /voucher-order/seckill-plus/{voucherId},20个不同用户并发抢购库存为5的专用券,券13有效且Redis与MySQL库存均重置为5；20个固定用户均已登录,20个不同Token通过CountDownLatch同时请求券13,200,严格成功5个且失败15个；失败原因为库存不足,Redis库存为0且已购集合为5人；MySQL库存为0且订单数和购买用户数均为5；库存不为负数,VoucherOversellConcurrencyTest,shouldNotOversellWhenTwentyUsersCompeteForFiveStocks,通过
