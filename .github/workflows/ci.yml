@@ -1,0 +1,214 @@
+name: Deterministic CI
+
+"on":
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deterministic-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repository-safety:
+    name: Repository safety
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Reject tracked secrets and local artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          forbidden_files="$(
+            git ls-files \
+              | grep -E \
+                '(^|/)\.env$|(^|/)\.venv/|(^|/)target/|(^|/)\.idea/|src/test/resources/config/test\.properties$|backup-before-|output-before-' \
+              || true
+          )"
+
+          if [[ -n "${forbidden_files}" ]]; then
+            echo "发现不应进入Git的文件："
+            echo "${forbidden_files}"
+            exit 1
+          fi
+
+          echo "REPOSITORY_SECRET_CHECK = PASS"
+
+      - name: Check tracked text formatting
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          text_suffixes = {
+              ".csv",
+              ".json",
+              ".jsonl",
+              ".java",
+              ".log",
+              ".md",
+              ".properties",
+              ".py",
+              ".sh",
+              ".txt",
+              ".xml",
+              ".yaml",
+              ".yml",
+          }
+
+          tracked_files = subprocess.check_output(
+              ["git", "ls-files"],
+              text=True,
+              encoding="utf-8",
+          ).splitlines()
+
+          problems = []
+
+          for relative_path in tracked_files:
+              path = Path(relative_path)
+
+              if path.suffix.lower() not in text_suffixes:
+                  continue
+
+              content = path.read_bytes()
+
+              if b"\r\n" in content:
+                  problems.append(
+                      f"{relative_path}: contains CRLF"
+                  )
+
+              for line_number, line in enumerate(
+                  content.split(b"\n"),
+                  start=1,
+              ):
+                  if line.endswith((b" ", b"\t")):
+                      problems.append(
+                          f"{relative_path}:{line_number}: "
+                          "trailing whitespace"
+                      )
+
+          if problems:
+              print("\n".join(problems))
+              raise SystemExit(1)
+
+          print("REPOSITORY_WHITESPACE_CHECK = PASS")
+          PY
+
+  python-tests:
+    name: Python AI test generator
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ai-case-generator
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            ai-case-generator/requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run complete Python test suite
+        run: |
+          python -m unittest discover \
+            -s tests \
+            -p "test_*.py" \
+            -v
+
+      - name: Build deterministic diagnosis inputs
+        run: |
+          python scripts/build_failure_diagnosis_inputs.py
+
+      - name: Validate diagnosis input artifacts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "output/failure-diagnosis/"
+              "diagnosis-inputs.jsonl"
+          )
+
+          records = [
+              json.loads(line)
+              for line in path.read_text(
+                  encoding="utf-8"
+              ).splitlines()
+              if line.strip()
+          ]
+
+          assert len(records) == 5
+
+          forbidden_fields = {
+              "failure_layer",
+              "root_cause_tag",
+              "root_cause",
+              "remediation",
+              "evidence_keywords",
+          }
+
+          for record in records:
+              leaked = (
+                  forbidden_fields
+                  & set(record)
+              )
+
+              assert not leaked, (
+                  f'{record["failure_id"]}'
+                  f"泄漏字段：{sorted(leaked)}"
+              )
+
+          print("DIAGNOSIS_INPUT_COUNT = 5")
+          print("ANSWER_FIELD_LEAK_CHECK = PASS")
+          PY
+
+  java-test-compile:
+    name: Java test compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "8"
+          cache: maven
+          cache-dependency-path: pom.xml
+
+      - name: Compile Java automation tests
+        run: |
+          mvn \
+            --batch-mode \
+            --no-transfer-progress \
+            -DskipTests \
+            test-compile
