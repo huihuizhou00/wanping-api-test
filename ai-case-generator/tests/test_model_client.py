@@ -24,6 +24,23 @@ class StructuredOutputRequestTest(unittest.TestCase):
         self.assertNotIn("strict", contract)
         self.assertEqual(schema, contract["schema"])
 
+    def test_response_format_supports_custom_schema_name(self):
+        schema = {"type": "object"}
+
+        response_format = build_response_format(
+            schema,
+            "wanping_failure_diagnosis",
+        )
+
+        self.assertEqual(
+            "wanping_failure_diagnosis",
+            response_format["json_schema"]["name"],
+        )
+        self.assertEqual(
+            schema,
+            response_format["json_schema"]["schema"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

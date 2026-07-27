@@ -1,0 +1,40 @@
+{
+  "total_cases": 5,
+  "status_counts": {
+    "partially_correct": 4,
+    "insufficient_evidence": 1
+  },
+  "scores": {
+    "cause_correctness": {
+      "actual": 6,
+      "maximum": 10
+    },
+    "evidence_support": {
+      "actual": 4,
+      "maximum": 10
+    },
+    "troubleshooting_usefulness": {
+      "actual": 6,
+      "maximum": 10
+    },
+    "total": {
+      "actual": 16,
+      "maximum": 30,
+      "rate": 0.5333333333333333
+    }
+  },
+  "confidence_calibration": {
+    "unsafe_no_review_count": 3,
+    "unsafe_no_review_ids": [
+      "DEFECT-003",
+      "DEFECT-004",
+      "DEFECT-005"
+    ],
+    "high_confidence_non_correct_count": 3,
+    "high_confidence_non_correct_ids": [
+      "DEFECT-003",
+      "DEFECT-004",
+      "DEFECT-005"
+    ]
+  }
+}

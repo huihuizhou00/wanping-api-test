@@ -7,15 +7,24 @@ from typing import Any, Dict, List
 from .settings import GeneratorSettings, ModelSettings
 
 
+DEFAULT_SCHEMA_NAME = "wanping_test_case_batch"
+DEFAULT_SYSTEM_PROMPT = (
+    "你只能输出合法JSON，且只能使用用户提供的已验证业务规则。"
+)
+
+
 class ModelOutputError(RuntimeError):
     pass
 
 
-def build_response_format(schema: Dict[str, Any]) -> Dict[str, Any]:
+def build_response_format(
+    schema: Dict[str, Any],
+    schema_name: str = DEFAULT_SCHEMA_NAME,
+) -> Dict[str, Any]:
     return {
         "type": "json_schema",
         "json_schema": {
-            "name": "wanping_test_case_batch",
+            "name": schema_name,
             "schema": schema,
         },
     }
@@ -27,10 +36,15 @@ class OpenAICompatibleClient:
         model: ModelSettings,
         generator: GeneratorSettings,
         schema: Dict[str, Any],
+        *,
+        schema_name: str = DEFAULT_SCHEMA_NAME,
+        system_prompt: str = DEFAULT_SYSTEM_PROMPT,
     ) -> None:
         self._model = model
         self._generator = generator
         self._schema = schema
+        self._schema_name = schema_name
+        self._system_prompt = system_prompt
         try:
             from openai import OpenAI
         except ImportError as exc:
@@ -48,11 +62,14 @@ class OpenAICompatibleClient:
             model=self._model.model,
             temperature=self._generator.temperature,
             max_tokens=self._generator.max_tokens,
-            response_format=build_response_format(self._schema),
+            response_format=build_response_format(
+                self._schema,
+                self._schema_name,
+            ),
             messages=[
                 {
                     "role": "system",
-                    "content": "你只能输出合法JSON，且只能使用用户提供的已验证业务规则。",
+                    "content": self._system_prompt,
                 },
                 {"role": "user", "content": prompt},
             ],
@@ -65,7 +82,11 @@ class OpenAICompatibleClient:
 
 def extract_json_object(content: str) -> Dict[str, Any]:
     text = content.strip()
-    fenced = re.fullmatch(r"```(?:json)?\s*(.*?)\s*```", text, flags=re.DOTALL | re.IGNORECASE)
+    fenced = re.fullmatch(
+        r"```(?:json)?\s*(.*?)\s*```",
+        text,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
     if fenced:
         text = fenced.group(1).strip()
     try:
@@ -84,19 +105,24 @@ def extract_json_object(content: str) -> Dict[str, Any]:
     return value
 
 
-def ensure_module_batch(batch: Dict[str, Any], module: str, expected_count: int) -> List[str]:
+def ensure_module_batch(
+    batch: Dict[str, Any], module: str, expected_count: int
+) -> List[str]:
     errors: List[str] = []
     scenarios = batch.get("scenarios")
     if not isinstance(scenarios, list):
         return ["顶层scenarios必须是数组"]
     if len(scenarios) != expected_count:
-        errors.append(f"模块{module}要求{expected_count}条，实际{len(scenarios)}条")
+        errors.append(
+            f"模块{module}要求{expected_count}条，实际{len(scenarios)}条"
+        )
     for index, scenario in enumerate(scenarios):
         if not isinstance(scenario, dict):
             errors.append(f"scenarios[{index}]必须是对象")
             continue
         if scenario.get("module") != module:
             errors.append(
-                f"scenarios[{index}].module应为{module}，实际为{scenario.get('module')}"
+                f"scenarios[{index}].module应为{module}，"
+                f"实际为{scenario.get('module')}"
             )
     return errors

@@ -1,0 +1,105 @@
+{
+  "total_cases": 5,
+  "schema_pass_count": 5,
+  "schema_pass_rate": 1.0,
+  "failure_layer_match_count": 3,
+  "failure_layer_accuracy": 0.6,
+  "root_cause_tag_match_count": 0,
+  "root_cause_tag_accuracy": 0.0,
+  "full_match_count": 0,
+  "full_match_rate": 0.0,
+  "average_evidence_keyword_recall": 0.2833333333333333,
+  "manual_text_review_count": 5,
+  "details": [
+    {
+      "failure_id": "DEFECT-001",
+      "schema_pass": true,
+      "schema_errors": [],
+      "expected_failure_layer": "application",
+      "predicted_failure_layer": "application",
+      "failure_layer_match": true,
+      "expected_root_cause_tag": "INTERCEPTOR_ROUTING",
+      "predicted_root_cause_tag": "BUSINESS_LOGIC_ERROR",
+      "root_cause_tag_match": false,
+      "keyword_total": 4,
+      "keyword_hits": [
+        "HTTP 401",
+        "HTTP 400"
+      ],
+      "keyword_hit_count": 2,
+      "keyword_recall": 0.5,
+      "manual_text_review_required": true
+    },
+    {
+      "failure_id": "DEFECT-002",
+      "schema_pass": true,
+      "schema_errors": [],
+      "expected_failure_layer": "application",
+      "predicted_failure_layer": "middleware",
+      "failure_layer_match": false,
+      "expected_root_cause_tag": "ASYNC_DEGRADATION",
+      "predicted_root_cause_tag": "ASYNC_TASK_FAILURE",
+      "root_cause_tag_match": false,
+      "keyword_total": 4,
+      "keyword_hits": [
+        "RocketMQ",
+        "辅助异步任务",
+        "success=false"
+      ],
+      "keyword_hit_count": 3,
+      "keyword_recall": 0.75,
+      "manual_text_review_required": true
+    },
+    {
+      "failure_id": "DEFECT-003",
+      "schema_pass": true,
+      "schema_errors": [],
+      "expected_failure_layer": "middleware",
+      "predicted_failure_layer": "middleware",
+      "failure_layer_match": true,
+      "expected_root_cause_tag": "BROKER_STORAGE_NOT_WRITABLE",
+      "predicted_root_cause_tag": "MESSAGE_PROCESSING_FAILURE",
+      "root_cause_tag_match": false,
+      "keyword_total": 4,
+      "keyword_hits": [],
+      "keyword_hit_count": 0,
+      "keyword_recall": 0.0,
+      "manual_text_review_required": true
+    },
+    {
+      "failure_id": "DEFECT-004",
+      "schema_pass": true,
+      "schema_errors": [],
+      "expected_failure_layer": "cache",
+      "predicted_failure_layer": "cache",
+      "failure_layer_match": true,
+      "expected_root_cause_tag": "CACHE_REBUILD_AND_WRONG_UNLOCK_KEY",
+      "predicted_root_cause_tag": "CONFIGURATION_ERROR",
+      "root_cause_tag_match": false,
+      "keyword_total": 5,
+      "keyword_hits": [],
+      "keyword_hit_count": 0,
+      "keyword_recall": 0.0,
+      "manual_text_review_required": true
+    },
+    {
+      "failure_id": "DEFECT-005",
+      "schema_pass": true,
+      "schema_errors": [],
+      "expected_failure_layer": "context",
+      "predicted_failure_layer": "application",
+      "failure_layer_match": false,
+      "expected_root_cause_tag": "THREADLOCAL_CONTEXT_LEAK",
+      "predicted_root_cause_tag": "AUTHENTICATION_FAILURE",
+      "root_cause_tag_match": false,
+      "keyword_total": 6,
+      "keyword_hits": [
+        "无Token"
+      ],
+      "keyword_hit_count": 1,
+      "keyword_recall": 0.16666666666666666,
+      "manual_text_review_required": true
+    }
+  ],
+  "model": "qwen2.5:7b"
+}

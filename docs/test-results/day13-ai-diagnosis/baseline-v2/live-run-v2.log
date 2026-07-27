@@ -1,0 +1,10 @@
+MODEL = qwen2.5:7b
+DIAGNOSIS_COUNT = 5
+SCHEMA_PASS = 5/5
+FAILURE_LAYER_ACCURACY = 3/5 (0.6000)
+ROOT_CAUSE_TAG_ACCURACY = 0/5 (0.0000)
+FULL_MATCH_RATE = 0/5 (0.0000)
+EVIDENCE_KEYWORD_RECALL = 0.2833
+PREDICTION_FILE = /home/zoey/workspace/wanping-api-test/ai-case-generator/output/failure-diagnosis/ai-diagnoses.jsonl
+EVALUATION_JSON = /home/zoey/workspace/wanping-api-test/ai-case-generator/output/failure-diagnosis/diagnosis-evaluation.json
+EVALUATION_MD = /home/zoey/workspace/wanping-api-test/ai-case-generator/output/failure-diagnosis/diagnosis-evaluation.md
