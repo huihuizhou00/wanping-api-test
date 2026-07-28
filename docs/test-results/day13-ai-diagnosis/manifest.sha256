@@ -1,0 +1,17 @@
+57279a8f4ccf3356dc50f9f2118d01a84cee0fbf24f2b2152668d5ef92b32d4d  ./baseline-v1/ai-diagnoses.jsonl
+b2fa7ff0d05503b51ffd3bc34add56e8643c67e39568fce42d057a7f52393c86  ./baseline-v1/diagnosis-evaluation.json
+aac058b51dabc6e8728d5869e3b6631286f46c43fd786380d09ebb44b45fbfba  ./baseline-v1/diagnosis-evaluation.md
+6144ea372e69b881310a5b3c66f73b6657a1ecbe930c9f3384245a408dbb83aa  ./baseline-v1/diagnosis-human-review.csv
+37e74fb39e5b2237a42d665e044e6de9876d6c37c08f64d33e8784015c0639d6  ./baseline-v1/diagnosis-human-review-summary.json
+cc92ccab4b8f03ebc5b963d7364d5fcf6267ca95175672b4537d3954336fb06b  ./baseline-v1/diagnosis-human-review-summary.md
+4e7c93f5384ba37ed8f193397d2a2dd2f3e0c0167411f797bc4b588420a45d25  ./baseline-v1/diagnosis-inputs.jsonl
+c98fa96f7224b15e4192e697aa2310692de19f9e07af012bcb5376a7ca0f0bb2  ./baseline-v1/generation-events.json
+048a2798043e6a233e1f144b5029a78e603f2baf1daa6f34f79c4d77a5783405  ./baseline-v1/README.md
+5a94fa85553172d517ee61cd035f4ad4adf7b50e332465992049d0ba7b7b8b28  ./baseline-v2/ai-diagnoses.jsonl
+20566261fc838b6647f4bcc4f83e745221ec1637ec8813a73eef848c1da3d1ec  ./baseline-v2/diagnosis-evaluation.json
+6c839b44ba43d0ed3a9e6345271c5bbb29e8ec11d709f9120b803a767a7f685d  ./baseline-v2/diagnosis-evaluation.md
+4e7cfe5e2747b5b6f566a6b9724e113ba99afe09e75a8fb7912f03555a2889b5  ./baseline-v2/diagnosis-inputs.jsonl
+0ef57ac5d0ca331258770e552a1ad0d9115b25df5c169c6b06fcdf542093499e  ./baseline-v2/generation-events.json
+bc122275f74543cabbd8df12ddf97519981bf251ae49755dddab04ab94cec450  ./baseline-v2/live-run-v2.log
+63d26fef1d9bfa27e4839ca3a7d07a7602167e27c3e35c9f4a2cb94bf662ef73  ./baseline-v2/README.md
+6fd75e47c47a6fec9d1c2e81c0b0e5feb1617a0b3932c260682c926d8bc3bf87  ./README.md

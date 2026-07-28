@@ -52,3 +52,6 @@ ai-case-generator/output-before-*/
 
 # output目录内的人工过程备份
 /ai-case-generator/output/*-before-*
+
+# AI failure diagnosis generated artifacts
+/ai-case-generator/output/failure-diagnosis/

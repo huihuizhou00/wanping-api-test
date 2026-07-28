@@ -1,0 +1,40 @@
+[
+  {
+    "failure_id": "DEFECT-001",
+    "attempt": 1,
+    "status": "passed",
+    "errors": []
+  },
+  {
+    "failure_id": "DEFECT-002",
+    "attempt": 1,
+    "status": "passed",
+    "errors": []
+  },
+  {
+    "failure_id": "DEFECT-003",
+    "attempt": 1,
+    "status": "passed",
+    "errors": []
+  },
+  {
+    "failure_id": "DEFECT-004",
+    "attempt": 1,
+    "status": "validation_failed",
+    "errors": [
+      "evidence.0.excerpt必须是actual_result中的原始片段"
+    ]
+  },
+  {
+    "failure_id": "DEFECT-004",
+    "attempt": 2,
+    "status": "passed",
+    "errors": []
+  },
+  {
+    "failure_id": "DEFECT-005",
+    "attempt": 1,
+    "status": "passed",
+    "errors": []
+  }
+]
