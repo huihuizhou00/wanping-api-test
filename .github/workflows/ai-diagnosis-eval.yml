@@ -30,6 +30,27 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: Configure Git transport
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git_config_file="${RUNNER_TEMP}/gitconfig-http11"
+
+          : > "${git_config_file}"
+
+          git config             -f "${git_config_file}"             http.version HTTP/1.1
+
+          actual_version="$(
+            GIT_CONFIG_GLOBAL="${git_config_file}"               git config               --global               --get-all               http.version
+          )"
+
+          test "${actual_version}" = "HTTP/1.1"
+
+          echo "GIT_CONFIG_GLOBAL=${git_config_file}"             >> "${GITHUB_ENV}"
+
+          echo "GIT_HTTP_VERSION_CHECK=${actual_version}"
+
       - name: Checkout repository
         uses: actions/checkout@v6
 
