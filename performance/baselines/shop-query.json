@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "scenario": "shop-query",
+  "status": "provisional",
+  "baseline_method": "median_of_three_rounds",
+  "round_count": 3,
+  "target": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 8082,
+    "path": "/shop/of/type"
+  },
+  "load_model": {
+    "threads": 20,
+    "ramp_up_seconds": 2,
+    "loops_per_thread": 20,
+    "expected_samples": 400,
+    "warmup_samples": 20
+  },
+  "environment": {
+    "root_disk_usage_percent": 92,
+    "environment_warning": "root_disk_usage_high",
+    "jmeter_result_storage": "/mnt/wanping-performance"
+  },
+  "metrics": {
+    "sample_count": 400,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "throughput_rps": 209.205,
+    "mean_ms": 6.595,
+    "median_ms": 6.0,
+    "p90_ms": 8,
+    "p95_ms": 8,
+    "p99_ms": 16,
+    "max_ms": 57
+  },
+  "thresholds": {
+    "sample_count": {
+      "severity": "hard",
+      "operator": "equal",
+      "value": 400
+    },
+    "error_rate": {
+      "severity": "hard",
+      "operator": "less_than_or_equal",
+      "absolute_max": 0.01
+    },
+    "throughput_rps": {
+      "severity": "hard",
+      "operator": "decrease_ratio_less_than_or_equal",
+      "max_decrease_ratio": 0.15
+    },
+    "p95_ms": {
+      "severity": "hard",
+      "operator": "increase_ratio_less_than_or_equal",
+      "max_increase_ratio": 0.2
+    },
+    "p99_ms": {
+      "severity": "warning",
+      "operator": "increase_ratio_less_than_or_equal",
+      "max_increase_ratio": 0.25
+    },
+    "max_ms": {
+      "severity": "observe"
+    }
+  },
+  "source_rounds": [
+    {
+      "round": 1,
+      "source": "performance/baselines/runs/shop-query-round1.json",
+      "metrics": {
+        "sample_count": 400,
+        "success_count": 400,
+        "error_count": 0,
+        "error_rate": 0.0,
+        "duration_seconds": 1.912,
+        "throughput_rps": 209.205,
+        "min_ms": 3,
+        "mean_ms": 6.95,
+        "median_ms": 6.0,
+        "p90_ms": 9,
+        "p95_ms": 9,
+        "p99_ms": 28,
+        "max_ms": 36,
+        "response_codes": {
+          "200": 400
+        }
+      }
+    },
+    {
+      "round": 2,
+      "source": "performance/baselines/runs/shop-query-round2.json",
+      "metrics": {
+        "sample_count": 400,
+        "success_count": 400,
+        "error_count": 0,
+        "error_rate": 0.0,
+        "duration_seconds": 1.857,
+        "throughput_rps": 215.401,
+        "min_ms": 3,
+        "mean_ms": 6.595,
+        "median_ms": 6.0,
+        "p90_ms": 8,
+        "p95_ms": 8,
+        "p99_ms": 16,
+        "max_ms": 79,
+        "response_codes": {
+          "200": 400
+        }
+      }
+    },
+    {
+      "round": 3,
+      "source": "performance/baselines/runs/shop-query-round3.json",
+      "metrics": {
+        "sample_count": 400,
+        "success_count": 400,
+        "error_count": 0,
+        "error_rate": 0.0,
+        "duration_seconds": 1.916,
+        "throughput_rps": 208.768,
+        "min_ms": 3,
+        "mean_ms": 6.463,
+        "median_ms": 6.0,
+        "p90_ms": 8,
+        "p95_ms": 8,
+        "p99_ms": 8,
+        "max_ms": 57,
+        "response_codes": {
+          "200": 400
+        }
+      }
+    }
+  ],
+  "notes": [
+    "This baseline represents a fixed regression workload, not maximum system capacity.",
+    "P99 and maximum latency showed higher variation than P95.",
+    "Rebuild the baseline after root disk usage is reduced."
+  ]
+}
