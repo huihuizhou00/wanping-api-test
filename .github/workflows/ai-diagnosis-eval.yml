@@ -1,12 +1,6 @@
 name: AI Diagnosis Evaluation
 
 "on":
-  push:
-    branches:
-      - feature/day13-failure-diagnosis
-    paths:
-      - ".github/workflows/ai-diagnosis-eval.yml"
-
   workflow_dispatch:
 
 permissions:
