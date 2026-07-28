@@ -1,0 +1,23 @@
+{
+  "scenario": "shop-query",
+  "run_type": "candidate",
+  "source_jtl": "/mnt/wanping-performance/runs/candidate-shop-query-round1-20260728-162955/run/result.jtl",
+  "metrics": {
+    "sample_count": 400,
+    "success_count": 400,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "duration_seconds": 1.874,
+    "throughput_rps": 213.447,
+    "min_ms": 4,
+    "mean_ms": 6.162,
+    "median_ms": 6.0,
+    "p90_ms": 7,
+    "p95_ms": 7,
+    "p99_ms": 11,
+    "max_ms": 80,
+    "response_codes": {
+      "200": 400
+    }
+  }
+}
