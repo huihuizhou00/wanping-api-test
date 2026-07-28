@@ -1,0 +1,135 @@
+name: Self-hosted Ollama Smoke
+
+"on":
+  push:
+    branches:
+      - feature/day13-failure-diagnosis
+    paths:
+      - ".github/workflows/ai-diagnosis-eval.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: self-hosted-ollama-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  self-hosted-ollama-smoke:
+    name: Self-hosted Ollama smoke
+
+    runs-on:
+      - self-hosted
+      - Linux
+      - X64
+      - ollama
+      - wanping-ai-test
+
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Show runner context
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "RUNNER_NAME=${RUNNER_NAME}"
+          echo "RUNNER_OS=${RUNNER_OS}"
+          echo "RUNNER_ARCH=${RUNNER_ARCH}"
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "GITHUB_SHA=${GITHUB_SHA}"
+          echo "WORKSPACE=${GITHUB_WORKSPACE}"
+
+      - name: Verify Ollama native and OpenAI-compatible APIs
+        shell: bash
+        env:
+          EXPECTED_MODEL: qwen2.5:7b
+          OLLAMA_BASE_URL: http://127.0.0.1:11434
+        run: |
+          set -euo pipefail
+
+          unset HTTP_PROXY
+          unset HTTPS_PROXY
+          unset ALL_PROXY
+          unset http_proxy
+          unset https_proxy
+          unset all_proxy
+
+          export NO_PROXY="127.0.0.1,localhost,::1"
+          export no_proxy="${NO_PROXY}"
+
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          base_url = os.environ["OLLAMA_BASE_URL"]
+          expected_model = os.environ["EXPECTED_MODEL"]
+
+          def load_json(url: str) -> dict:
+              request = urllib.request.Request(
+                  url,
+                  headers={
+                      "Accept": "application/json",
+                  },
+              )
+
+              with urllib.request.urlopen(
+                  request,
+                  timeout=10,
+              ) as response:
+                  assert response.status == 200
+                  return json.load(response)
+
+          native = load_json(
+              f"{base_url}/api/tags"
+          )
+
+          native_models = {
+              str(item.get("name", ""))
+              for item in native.get("models", [])
+          } | {
+              str(item.get("model", ""))
+              for item in native.get("models", [])
+          }
+
+          assert expected_model in native_models, (
+              f"本机未发现模型{expected_model}，"
+              f"实际模型：{sorted(native_models)}"
+          )
+
+          compatible = load_json(
+              f"{base_url}/v1/models"
+          )
+
+          compatible_models = {
+              str(item.get("id", ""))
+              for item in compatible.get("data", [])
+          }
+
+          assert expected_model in compatible_models, (
+              f"OpenAI兼容接口未返回{expected_model}，"
+              f"实际模型：{sorted(compatible_models)}"
+          )
+
+          print("OLLAMA_NATIVE_API_CHECK = PASS")
+          print("OLLAMA_OPENAI_API_CHECK = PASS")
+          print("OLLAMA_MODEL_CHECK = PASS")
+          print("EXPECTED_MODEL =", expected_model)
+          PY
+
+      - name: Verify repository checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f pom.xml
+          test -f ai-case-generator/requirements.txt
+          test -f ai-case-generator/scripts/run_failure_diagnosis.py
+
+          echo "REPOSITORY_CHECKOUT_CHECK = PASS"
