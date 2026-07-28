@@ -1,4 +1,4 @@
-name: Self-hosted Ollama Smoke
+name: AI Diagnosis Evaluation
 
 "on":
   push:
@@ -13,12 +13,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: self-hosted-ollama-smoke-${{ github.ref }}
+  group: ai-diagnosis-evaluation-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  self-hosted-ollama-smoke:
-    name: Self-hosted Ollama smoke
+  ai-diagnosis-evaluation:
+    name: AI diagnosis evaluation
 
     runs-on:
       - self-hosted
@@ -27,7 +27,15 @@ jobs:
       - ollama
       - wanping-ai-test
 
-    timeout-minutes: 10
+    timeout-minutes: 30
+
+    env:
+      AI_BASE_URL: http://127.0.0.1:11434/v1
+      AI_API_KEY: ollama
+      AI_MODEL: qwen2.5:7b
+      AI_TIMEOUT_SECONDS: "180"
+      PYTHONUNBUFFERED: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
 
     steps:
       - name: Configure Git transport
@@ -39,15 +47,22 @@ jobs:
 
           : > "${git_config_file}"
 
-          git config             -f "${git_config_file}"             http.version HTTP/1.1
+          git config \
+            -f "${git_config_file}" \
+            http.version HTTP/1.1
 
           actual_version="$(
-            GIT_CONFIG_GLOBAL="${git_config_file}"               git config               --global               --get-all               http.version
+            GIT_CONFIG_GLOBAL="${git_config_file}" \
+              git config \
+              --global \
+              --get-all \
+              http.version
           )"
 
           test "${actual_version}" = "HTTP/1.1"
 
-          echo "GIT_CONFIG_GLOBAL=${git_config_file}"             >> "${GITHUB_ENV}"
+          echo "GIT_CONFIG_GLOBAL=${git_config_file}" \
+            >> "${GITHUB_ENV}"
 
           echo "GIT_HTTP_VERSION_CHECK=${actual_version}"
 
@@ -66,11 +81,11 @@ jobs:
           echo "GITHUB_SHA=${GITHUB_SHA}"
           echo "WORKSPACE=${GITHUB_WORKSPACE}"
 
-      - name: Verify Ollama native and OpenAI-compatible APIs
+          python3 --version
+          git --version
+
+      - name: Verify Ollama service and model
         shell: bash
-        env:
-          EXPECTED_MODEL: qwen2.5:7b
-          OLLAMA_BASE_URL: http://127.0.0.1:11434
         run: |
           set -euo pipefail
 
@@ -86,11 +101,10 @@ jobs:
 
           python3 - <<'PY'
           import json
-          import os
           import urllib.request
 
-          base_url = os.environ["OLLAMA_BASE_URL"]
-          expected_model = os.environ["EXPECTED_MODEL"]
+          base_url = "http://127.0.0.1:11434"
+          expected_model = "qwen2.5:7b"
 
           def load_json(url: str) -> dict:
               request = urllib.request.Request(
@@ -120,7 +134,7 @@ jobs:
           }
 
           assert expected_model in native_models, (
-              f"本机未发现模型{expected_model}，"
+              f"未发现模型{expected_model}，"
               f"实际模型：{sorted(native_models)}"
           )
 
@@ -144,13 +158,264 @@ jobs:
           print("EXPECTED_MODEL =", expected_model)
           PY
 
-      - name: Verify repository checkout
+      - name: Create isolated Python environment
         shell: bash
+        working-directory: ai-case-generator
         run: |
           set -euo pipefail
 
-          test -f pom.xml
-          test -f ai-case-generator/requirements.txt
-          test -f ai-case-generator/scripts/run_failure_diagnosis.py
+          venv_dir="${RUNNER_TEMP}/wanping-ai-eval-venv"
 
-          echo "REPOSITORY_CHECKOUT_CHECK = PASS"
+          rm -rf "${venv_dir}"
+
+          python3 -m venv "${venv_dir}"
+
+          echo "AI_EVAL_VENV=${venv_dir}" \
+            >> "${GITHUB_ENV}"
+
+          "${venv_dir}/bin/python" \
+            -m pip install \
+            --upgrade pip
+
+          "${venv_dir}/bin/python" \
+            -m pip install \
+            -r requirements.txt
+
+          "${venv_dir}/bin/python" \
+            --version
+
+          echo "PYTHON_ENVIRONMENT_CHECK = PASS"
+
+      - name: Run diagnosis component tests
+        shell: bash
+        working-directory: ai-case-generator
+        run: |
+          set -euo pipefail
+
+          "${AI_EVAL_VENV}/bin/python" \
+            -m unittest \
+            tests/test_model_client.py \
+            tests/test_failure_diagnosis.py \
+            tests/test_failure_diagnosis_inputs.py \
+            tests/test_failure_diagnosis_runner.py \
+            tests/test_failure_gold_dataset.py \
+            -v
+
+          echo "DIAGNOSIS_COMPONENT_TESTS = PASS"
+
+      - name: Build no-leak diagnosis inputs
+        shell: bash
+        working-directory: ai-case-generator
+        run: |
+          set -euo pipefail
+
+          rm -rf \
+            output/failure-diagnosis
+
+          "${AI_EVAL_VENV}/bin/python" \
+            scripts/build_failure_diagnosis_inputs.py
+
+          "${AI_EVAL_VENV}/bin/python" - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path(
+              "output/failure-diagnosis/"
+              "diagnosis-inputs.jsonl"
+          )
+
+          records = [
+              json.loads(line)
+              for line in path.read_text(
+                  encoding="utf-8"
+              ).splitlines()
+              if line.strip()
+          ]
+
+          forbidden_fields = {
+              "failure_layer",
+              "root_cause_tag",
+              "root_cause",
+              "remediation",
+              "evidence_keywords",
+          }
+
+          assert len(records) == 5
+
+          for record in records:
+              leaked = (
+                  forbidden_fields
+                  & set(record)
+              )
+
+              assert not leaked, (
+                  f'{record["failure_id"]}'
+                  f"泄漏字段：{sorted(leaked)}"
+              )
+
+          print("DIAGNOSIS_INPUT_COUNT =", len(records))
+          print("ANSWER_FIELD_LEAK_CHECK = PASS")
+          PY
+
+      - name: Run live AI failure diagnosis
+        shell: bash
+        working-directory: ai-case-generator
+        run: |
+          set -euo pipefail
+          set -o pipefail
+
+          unset HTTP_PROXY
+          unset HTTPS_PROXY
+          unset ALL_PROXY
+          unset http_proxy
+          unset https_proxy
+          unset all_proxy
+
+          export NO_PROXY="127.0.0.1,localhost,::1"
+          export no_proxy="${NO_PROXY}"
+
+          mkdir -p \
+            output/failure-diagnosis
+
+          "${AI_EVAL_VENV}/bin/python" \
+            scripts/run_failure_diagnosis.py \
+            --max-retries 1 \
+            2>&1 \
+            | tee \
+              output/failure-diagnosis/live-run-ci.log
+
+          run_exit_code="${PIPESTATUS[0]}"
+
+          echo "AI_DIAGNOSIS_EXIT_CODE=${run_exit_code}"
+
+          test "${run_exit_code}" -eq 0
+
+      - name: Verify AI diagnosis outputs
+        shell: bash
+        working-directory: ai-case-generator
+        run: |
+          set -euo pipefail
+
+          "${AI_EVAL_VENV}/bin/python" - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          output = Path(
+              "output/failure-diagnosis"
+          )
+
+          required_files = [
+              output / "ai-diagnoses.jsonl",
+              output / "generation-events.json",
+              output / "diagnosis-evaluation.json",
+              output / "diagnosis-evaluation.md",
+              output / "live-run-ci.log",
+          ]
+
+          for path in required_files:
+              assert path.is_file(), (
+                  f"缺少评测产物：{path}"
+              )
+
+          diagnoses = [
+              json.loads(line)
+              for line in (
+                  output / "ai-diagnoses.jsonl"
+              ).read_text(
+                  encoding="utf-8"
+              ).splitlines()
+              if line.strip()
+          ]
+
+          summary = json.loads(
+              (
+                  output
+                  / "diagnosis-evaluation.json"
+              ).read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          assert len(diagnoses) == 5
+          assert summary["total_cases"] == 5
+          assert summary["schema_pass_rate"] == 1.0
+
+          print(
+              "DIAGNOSIS_COUNT =",
+              len(diagnoses),
+          )
+          print(
+              "SCHEMA_PASS_RATE =",
+              summary["schema_pass_rate"],
+          )
+          print(
+              "FAILURE_LAYER_ACCURACY =",
+              summary[
+                  "failure_layer_accuracy"
+              ],
+          )
+          print(
+              "ROOT_CAUSE_TAG_ACCURACY =",
+              summary[
+                  "root_cause_tag_accuracy"
+              ],
+          )
+          print(
+              "FULL_MATCH_RATE =",
+              summary["full_match_rate"],
+          )
+          print(
+              "EVIDENCE_KEYWORD_RECALL =",
+              summary[
+                  "average_evidence_keyword_recall"
+              ],
+          )
+          print(
+              "MANUAL_TEXT_REVIEW_COUNT =",
+              summary[
+                  "manual_text_review_count"
+              ],
+          )
+
+          step_summary = Path(
+              os.environ["GITHUB_STEP_SUMMARY"]
+          )
+
+          evaluation_markdown = (
+              output
+              / "diagnosis-evaluation.md"
+          ).read_text(
+              encoding="utf-8"
+          )
+
+          with step_summary.open(
+              "a",
+              encoding="utf-8",
+          ) as file:
+              file.write(
+                  "# Self-hosted AI诊断评测\n\n"
+              )
+              file.write(
+                  "- Runner："
+                  f'{os.environ["RUNNER_NAME"]}\n'
+              )
+              file.write(
+                  "- 模型：qwen2.5:7b\n"
+              )
+              file.write(
+                  "- 输入版本：无语义泄漏Baseline v2\n\n"
+              )
+              file.write(evaluation_markdown)
+
+          print("AI_DIAGNOSIS_OUTPUT_CHECK = PASS")
+          PY
+
+      - name: Upload AI diagnosis report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-diagnosis-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ai-case-generator/output/failure-diagnosis/
+          if-no-files-found: warn
+          retention-days: 14
