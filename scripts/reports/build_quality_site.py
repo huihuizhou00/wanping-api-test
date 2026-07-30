@@ -285,3 +285,528 @@ def resolve_safe_file(
         )
 
     return resolved
+
+
+DISPLAY_METRICS = (
+    "sample_count",
+    "success_count",
+    "error_count",
+    "error_rate",
+    "duration_seconds",
+    "throughput_rps",
+    "mean_ms",
+    "median_ms",
+    "p90_ms",
+    "p95_ms",
+    "p99_ms",
+    "max_ms",
+)
+
+REQUIRED_METRICS = (
+    "sample_count",
+    "error_rate",
+    "throughput_rps",
+    "p95_ms",
+    "p99_ms",
+    "max_ms",
+)
+
+REQUIRED_CHECKS = (
+    "sample_count",
+    "error_rate",
+    "throughput_rps",
+    "p95_ms",
+    "p99_ms",
+    "max_ms",
+)
+
+REQUIRED_BUSINESS_CHECKS = (
+    "voucher_id",
+    "db_stock",
+    "order_count",
+    "distinct_user_count",
+    "duplicate_user_count",
+    "deduct_log_count",
+    "restore_log_count",
+    "verify_open_count",
+    "recovery_task_count",
+    "reconcile_task_count",
+    "redis_stock",
+    "redis_order_count",
+    "redis_trace_count",
+    "request_key_count",
+)
+
+SENSITIVE_OPTIONAL_FIELDS = {
+    "authorization",
+    "password",
+    "secret",
+    "api_key",
+    "access_token",
+    "refresh_token",
+    "prompt",
+}
+
+
+def load_json_report(
+    path: Path,
+) -> dict[str, Any]:
+    try:
+        text = path.read_text(
+            encoding="utf-8"
+        )
+    except FileNotFoundError as error:
+        raise QualitySiteError(
+            f"报告文件不存在：{path}"
+        ) from error
+    except OSError as error:
+        raise QualitySiteError(
+            f"无法读取报告文件：{path}"
+        ) from error
+
+    try:
+        report = json.loads(text)
+    except json.JSONDecodeError as error:
+        raise QualitySiteError(
+            f"报告不是有效JSON：{path}"
+        ) from error
+
+    if not isinstance(report, dict):
+        raise QualitySiteError(
+            f"报告根节点必须是对象：{path}"
+        )
+
+    return report
+
+
+def require_mapping(
+    value: Any,
+    field_name: str,
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise QualitySiteError(
+            f"{field_name}必须是对象"
+        )
+
+    return value
+
+
+def require_integer(
+    value: Any,
+    field_name: str,
+) -> int:
+    if (
+        isinstance(value, bool)
+        or not isinstance(value, int)
+    ):
+        raise QualitySiteError(
+            f"{field_name}必须是整数"
+        )
+
+    return value
+
+
+def require_number(
+    value: Any,
+    field_name: str,
+) -> int | float:
+    if (
+        isinstance(value, bool)
+        or not isinstance(value, (int, float))
+    ):
+        raise QualitySiteError(
+            f"{field_name}必须是数值"
+        )
+
+    return value
+
+
+def require_status(
+    value: Any,
+    field_name: str,
+) -> str:
+    status = require_non_empty_string(
+        value,
+        field_name,
+    )
+
+    if status not in ALLOWED_STATUSES:
+        raise QualitySiteError(
+            f"{field_name}状态非法：{status}"
+        )
+
+    return status
+
+
+def normalize_scalar(
+    value: Any,
+    field_name: str,
+) -> Any:
+    if value is None:
+        return None
+
+    if isinstance(
+        value,
+        (str, int, float, bool),
+    ):
+        return value
+
+    raise QualitySiteError(
+        f"{field_name}必须是标量"
+    )
+
+
+def extract_metrics(
+    metrics: Any,
+    field_name: str,
+) -> dict[str, int | float]:
+    source = require_mapping(
+        metrics,
+        field_name,
+    )
+
+    for metric_name in REQUIRED_METRICS:
+        if metric_name not in source:
+            raise QualitySiteError(
+                f"{field_name}缺少{metric_name}"
+            )
+
+    result: dict[str, int | float] = {}
+
+    for metric_name in DISPLAY_METRICS:
+        if metric_name not in source:
+            continue
+
+        result[metric_name] = require_number(
+            source[metric_name],
+            f"{field_name}.{metric_name}",
+        )
+
+    return result
+
+
+def normalize_checks(
+    checks: Any,
+) -> dict[str, dict[str, Any]]:
+    source = require_mapping(
+        checks,
+        "checks",
+    )
+
+    result = {}
+
+    for check_name in REQUIRED_CHECKS:
+        if check_name not in source:
+            raise QualitySiteError(
+                f"checks缺少{check_name}"
+            )
+
+        check = require_mapping(
+            source[check_name],
+            f"checks.{check_name}",
+        )
+
+        normalized = {
+            "status": require_status(
+                check.get("status"),
+                f"checks.{check_name}.status",
+            )
+        }
+
+        for field_name in (
+            "severity",
+            "baseline",
+            "candidate",
+            "change_ratio",
+            "threshold",
+        ):
+            if field_name in check:
+                normalized[field_name] = (
+                    normalize_scalar(
+                        check[field_name],
+                        (
+                            f"checks.{check_name}."
+                            f"{field_name}"
+                        ),
+                    )
+                )
+
+        result[check_name] = normalized
+
+    return result
+
+
+def normalize_business_checks(
+    checks: Any,
+) -> dict[str, dict[str, Any]]:
+    source = require_mapping(
+        checks,
+        "business_checks",
+    )
+
+    result = {}
+
+    for check_name in REQUIRED_BUSINESS_CHECKS:
+        if check_name not in source:
+            raise QualitySiteError(
+                "business_checks缺少"
+                f"{check_name}"
+            )
+
+        check = require_mapping(
+            source[check_name],
+            f"business_checks.{check_name}",
+        )
+
+        normalized = {
+            "status": require_status(
+                check.get("status"),
+                (
+                    "business_checks."
+                    f"{check_name}.status"
+                ),
+            )
+        }
+
+        for field_name in (
+            "baseline",
+            "candidate",
+            "expected",
+        ):
+            if field_name not in check:
+                raise QualitySiteError(
+                    "business_checks."
+                    f"{check_name}缺少"
+                    f"{field_name}"
+                )
+
+            normalized[field_name] = (
+                normalize_scalar(
+                    check[field_name],
+                    (
+                        "business_checks."
+                        f"{check_name}."
+                        f"{field_name}"
+                    ),
+                )
+            )
+
+        result[check_name] = normalized
+
+    return result
+
+
+def validate_common_performance_report(
+    report: Any,
+    expected_scenario: str,
+) -> tuple[
+    str,
+    int,
+    dict[str, int | float],
+    dict[str, int | float],
+    dict[str, dict[str, Any]],
+]:
+    source = require_mapping(
+        report,
+        "report",
+    )
+
+    scenario = require_non_empty_string(
+        source.get("scenario"),
+        "scenario",
+    )
+
+    if scenario != expected_scenario:
+        raise QualitySiteError(
+            f"报告场景必须为{expected_scenario}，"
+            f"实际为{scenario}"
+        )
+
+    status = require_status(
+        source.get("final_status"),
+        "final_status",
+    )
+
+    exit_code = require_integer(
+        source.get("exit_code"),
+        "exit_code",
+    )
+
+    baseline_metrics = extract_metrics(
+        source.get("baseline_metrics"),
+        "baseline_metrics",
+    )
+
+    candidate_metrics = extract_metrics(
+        source.get("candidate_metrics"),
+        "candidate_metrics",
+    )
+
+    checks = normalize_checks(
+        source.get("checks")
+    )
+
+    return (
+        status,
+        exit_code,
+        baseline_metrics,
+        candidate_metrics,
+        checks,
+    )
+
+
+def adapt_shop_performance(
+    report: dict[str, Any],
+    title: str,
+    detail_href: str,
+) -> dict[str, Any]:
+    (
+        status,
+        exit_code,
+        baseline_metrics,
+        candidate_metrics,
+        checks,
+    ) = validate_common_performance_report(
+        report,
+        "shop-query",
+    )
+
+    return {
+        "kind": "shop_performance",
+        "title": require_non_empty_string(
+            title,
+            "title",
+        ),
+        "scenario": "shop-query",
+        "status": status,
+        "exit_code": exit_code,
+        "detail_href": require_non_empty_string(
+            detail_href,
+            "detail_href",
+        ),
+        "baseline_metrics": baseline_metrics,
+        "candidate_metrics": candidate_metrics,
+        "checks": checks,
+    }
+
+
+def adapt_seckill_performance(
+    report: dict[str, Any],
+    title: str,
+    detail_href: str,
+) -> dict[str, Any]:
+    (
+        status,
+        exit_code,
+        baseline_metrics,
+        candidate_metrics,
+        checks,
+    ) = validate_common_performance_report(
+        report,
+        "seckill-plus",
+    )
+
+    return {
+        "kind": "seckill_performance",
+        "title": require_non_empty_string(
+            title,
+            "title",
+        ),
+        "scenario": "seckill-plus",
+        "status": status,
+        "exit_code": exit_code,
+        "detail_href": require_non_empty_string(
+            detail_href,
+            "detail_href",
+        ),
+        "baseline_metrics": baseline_metrics,
+        "candidate_metrics": candidate_metrics,
+        "checks": checks,
+        "business_checks": (
+            normalize_business_checks(
+                report.get("business_checks")
+            )
+        ),
+    }
+
+
+def extract_optional_summary(
+    report: dict[str, Any],
+) -> dict[str, Any]:
+    summary = {}
+
+    for key, value in report.items():
+        lowered_key = key.lower()
+
+        if any(
+            fragment in lowered_key
+            for fragment in SENSITIVE_OPTIONAL_FIELDS
+        ):
+            continue
+
+        if not isinstance(
+            value,
+            (str, int, float, bool),
+        ):
+            continue
+
+        if (
+            isinstance(value, str)
+            and len(value) > 160
+        ):
+            continue
+
+        summary[key] = value
+
+        if len(summary) >= 12:
+            break
+
+    return summary
+
+
+def adapt_optional_document(
+    path: Path | None,
+    title: str,
+    detail_href: str | None,
+) -> dict[str, Any]:
+    normalized_title = require_non_empty_string(
+        title,
+        "title",
+    )
+
+    if path is None or not path.is_file():
+        return {
+            "kind": "optional_document",
+            "title": normalized_title,
+            "status": "UNAVAILABLE",
+            "available": False,
+            "detail_href": detail_href,
+            "summary": {},
+        }
+
+    report = load_json_report(path)
+
+    raw_status = report.get(
+        "final_status",
+        report.get("status"),
+    )
+
+    status = (
+        "OBSERVE"
+        if raw_status is None
+        else require_status(
+            raw_status,
+            "optional_report.status",
+        )
+    )
+
+    return {
+        "kind": "optional_document",
+        "title": normalized_title,
+        "status": status,
+        "available": True,
+        "detail_href": detail_href,
+        "summary": extract_optional_summary(
+            report
+        ),
+    }
