@@ -71,3 +71,6 @@ ai-case-generator/output-before-*/
 
 # Local investigation and execution logs
 /output/
+
+# Generated quality report site
+/build/quality-site/
