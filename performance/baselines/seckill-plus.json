@@ -1,0 +1,155 @@
+{
+  "scenario": "seckill-plus",
+  "run_type": "baseline",
+  "round_count": 3,
+  "status": "PASS",
+  "target": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 8082,
+    "voucher_id": 900013,
+    "redis_database": 1
+  },
+  "load_model": {
+    "threads": 20,
+    "ramp_up_seconds": 2,
+    "loops_per_thread": 1,
+    "unique_tokens": 20,
+    "expected_samples": 20
+  },
+  "metrics": {
+    "sample_count": 20,
+    "success_count": 20,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "duration_seconds": 4.719,
+    "throughput_rps": 4.238,
+    "mean_ms": 3023.55,
+    "median_ms": 3012.0,
+    "p90_ms": 3071,
+    "p95_ms": 3082,
+    "p99_ms": 3082,
+    "max_ms": 3082
+  },
+  "business_consistency": {
+    "voucher_id": 900013,
+    "db_stock": 0,
+    "order_count": 20,
+    "distinct_user_count": 20,
+    "duplicate_user_count": 0,
+    "deduct_log_count": 20,
+    "restore_log_count": 0,
+    "verify_open_count": 0,
+    "recovery_task_count": 0,
+    "reconcile_task_count": 0,
+    "redis_stock": 0,
+    "redis_order_count": 20,
+    "redis_trace_count": 20,
+    "request_key_count": 0
+  },
+  "environment": {
+    "root_disk_usage_percent_max": 92,
+    "root_disk_warning": true
+  },
+  "source_rounds": [
+    {
+      "round": 1,
+      "raw_artifact_directory": "/mnt/wanping-performance/runs/seckill-plus-baseline-round1-20260730-140416",
+      "metrics": {
+        "sample_count": 20,
+        "success_count": 20,
+        "error_count": 0,
+        "error_rate": 0.0,
+        "duration_seconds": 4.744,
+        "throughput_rps": 4.216,
+        "mean_ms": 3023.55,
+        "median_ms": 3012.0,
+        "p90_ms": 3071,
+        "p95_ms": 3082,
+        "p99_ms": 3082,
+        "max_ms": 3082
+      }
+    },
+    {
+      "round": 2,
+      "raw_artifact_directory": "/mnt/wanping-performance/runs/seckill-plus-baseline-round2-20260730-140637",
+      "metrics": {
+        "sample_count": 20,
+        "success_count": 20,
+        "error_count": 0,
+        "error_rate": 0.0,
+        "duration_seconds": 4.719,
+        "throughput_rps": 4.238,
+        "mean_ms": 3019.95,
+        "median_ms": 3012.0,
+        "p90_ms": 3049,
+        "p95_ms": 3067,
+        "p99_ms": 3067,
+        "max_ms": 3067
+      }
+    },
+    {
+      "round": 3,
+      "raw_artifact_directory": "/mnt/wanping-performance/runs/seckill-plus-baseline-round3-20260730-140716",
+      "metrics": {
+        "sample_count": 20,
+        "success_count": 20,
+        "error_count": 0,
+        "error_rate": 0.0,
+        "duration_seconds": 4.718,
+        "throughput_rps": 4.239,
+        "mean_ms": 3055.7,
+        "median_ms": 3011.0,
+        "p90_ms": 3215,
+        "p95_ms": 3245,
+        "p99_ms": 3245,
+        "max_ms": 3245
+      }
+    }
+  ],
+  "thresholds": {
+    "sample_count": {
+      "expected": 20,
+      "severity": "FAIL"
+    },
+    "error_rate": {
+      "max": 0.0,
+      "severity": "FAIL"
+    },
+    "throughput_rps": {
+      "max_decrease_ratio": 0.15,
+      "severity": "FAIL"
+    },
+    "p95_ms": {
+      "max_increase_ratio": 0.15,
+      "severity": "FAIL"
+    },
+    "p99_ms": {
+      "max_increase_ratio": 0.2,
+      "severity": "WARNING"
+    },
+    "max_ms": {
+      "mode": "observe",
+      "severity": "OBSERVE"
+    },
+    "business_consistency": {
+      "expected": {
+        "voucher_id": 900013,
+        "db_stock": 0,
+        "order_count": 20,
+        "distinct_user_count": 20,
+        "duplicate_user_count": 0,
+        "deduct_log_count": 20,
+        "restore_log_count": 0,
+        "verify_open_count": 0,
+        "recovery_task_count": 0,
+        "reconcile_task_count": 0,
+        "redis_stock": 0,
+        "redis_order_count": 20,
+        "redis_trace_count": 20,
+        "request_key_count": 0
+      },
+      "severity": "FAIL"
+    }
+  }
+}
