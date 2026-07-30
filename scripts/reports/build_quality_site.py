@@ -1467,3 +1467,111 @@ def build_site(
     )
 
     return build_metadata
+
+
+def parse_arguments() -> Any:
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description=(
+            "生成万评统一质量报告站点"
+        )
+    )
+
+    parser.add_argument(
+        "--repository-root",
+        required=True,
+        type=Path,
+    )
+    parser.add_argument(
+        "--manifest",
+        required=True,
+        type=Path,
+    )
+    parser.add_argument(
+        "--output",
+        required=True,
+        type=Path,
+    )
+    parser.add_argument(
+        "--commit-sha",
+        required=True,
+    )
+    parser.add_argument(
+        "--branch",
+        required=True,
+    )
+    parser.add_argument(
+        "--publish-mode",
+        required=True,
+    )
+    parser.add_argument(
+        "--ci-run-url",
+        default="",
+    )
+    parser.add_argument(
+        "--published-at",
+        required=True,
+    )
+    parser.add_argument(
+        "--repository",
+        required=True,
+    )
+
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_arguments()
+
+    repository_root = (
+        args.repository_root.resolve(
+            strict=True
+        )
+    )
+
+    manifest_path = args.manifest
+
+    if not manifest_path.is_absolute():
+        manifest_path = (
+            repository_root / manifest_path
+        )
+
+    output_directory = args.output
+
+    if not output_directory.is_absolute():
+        output_directory = (
+            repository_root / output_directory
+        )
+
+    result = build_site(
+        repository_root=repository_root,
+        manifest_path=manifest_path,
+        output_directory=output_directory,
+        metadata={
+            "commit_sha": args.commit_sha,
+            "branch": args.branch,
+            "publish_mode": args.publish_mode,
+            "ci_run_url": args.ci_run_url,
+            "published_at": args.published_at,
+            "repository": args.repository,
+        },
+    )
+
+    print(
+        "QUALITY_SITE_BUILD = PASS"
+    )
+    print(
+        "OVERALL_STATUS =",
+        result["overall_status"],
+    )
+    print(
+        "OUTPUT_DIRECTORY =",
+        output_directory,
+    )
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
