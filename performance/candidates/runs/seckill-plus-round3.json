@@ -1,0 +1,54 @@
+{
+  "scenario": "seckill-plus",
+  "run_type": "candidate",
+  "round": 3,
+  "status": "PASS",
+  "target": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 8082,
+    "voucher_id": 900013,
+    "redis_database": 1
+  },
+  "load_model": {
+    "threads": 20,
+    "ramp_up_seconds": 2,
+    "loops_per_thread": 1,
+    "unique_tokens": 20,
+    "expected_samples": 20
+  },
+  "metrics": {
+    "sample_count": 20,
+    "success_count": 20,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "duration_seconds": 4.741,
+    "throughput_rps": 4.219,
+    "mean_ms": 3016.5,
+    "median_ms": 3012.0,
+    "p90_ms": 3034,
+    "p95_ms": 3049,
+    "p99_ms": 3049,
+    "max_ms": 3049
+  },
+  "business_consistency": {
+    "voucher_id": 900013,
+    "db_stock": 0,
+    "order_count": 20,
+    "distinct_user_count": 20,
+    "duplicate_user_count": 0,
+    "deduct_log_count": 20,
+    "restore_log_count": 0,
+    "verify_open_count": 0,
+    "recovery_task_count": 0,
+    "reconcile_task_count": 0,
+    "redis_stock": 0,
+    "redis_order_count": 20,
+    "redis_trace_count": 20,
+    "request_key_count": 0
+  },
+  "environment": {
+    "root_disk_usage_percent": 92
+  },
+  "raw_artifact_directory": "/mnt/wanping-performance/runs/seckill-plus-candidate-round3-20260730-141502"
+}
