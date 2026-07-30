@@ -213,3 +213,102 @@ jobs:
             --no-transfer-progress \
             -DskipTests \
             test-compile
+  quality-site-tests:
+    name: Quality site tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Run quality site tests
+        run: |
+          python -m unittest discover \
+            -s scripts/reports/tests \
+            -p "test_*.py" \
+            -v
+
+      - name: Build quality site
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          published_at="$(
+            date -u +%Y-%m-%dT%H:%M:%SZ
+          )"
+
+          branch_name="$(
+            if [[ -n "${GITHUB_HEAD_REF:-}" ]]; then
+              printf '%s' "${GITHUB_HEAD_REF}"
+            else
+              printf '%s' "${GITHUB_REF_NAME}"
+            fi
+          )"
+
+          python scripts/reports/build_quality_site.py \
+            --repository-root . \
+            --manifest \
+              quality-site/report-manifest.json \
+            --output build/quality-site \
+            --commit-sha "${GITHUB_SHA}" \
+            --branch "${branch_name}" \
+            --publish-mode ci \
+            --ci-run-url \
+              "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+            --published-at "${published_at}" \
+            --repository "${GITHUB_REPOSITORY}"
+
+      - name: Validate quality site
+        run: |
+          python scripts/reports/check_quality_site.py \
+            --site build/quality-site
+
+      - name: Verify build metadata
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(
+              "build/quality-site/"
+              "build-metadata.json"
+          )
+
+          metadata = json.loads(
+              path.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          assert metadata["commit_sha"] == (
+              os.environ["GITHUB_SHA"]
+          )
+          assert metadata["overall_status"] in {
+              "PASS",
+              "WARNING",
+              "FAIL",
+          }
+          assert metadata[
+              "required_report_count"
+          ] == 2
+
+          index = Path(
+              "build/quality-site/index.html"
+          ).read_text(
+              encoding="utf-8"
+          )
+
+          assert os.environ["GITHUB_SHA"] in index
+          assert "商铺查询性能回归" in index
+          assert "秒杀 Plus 性能回归" in index
+
+          print(
+              "QUALITY_SITE_METADATA_CHECK = PASS"
+          )
+          PY

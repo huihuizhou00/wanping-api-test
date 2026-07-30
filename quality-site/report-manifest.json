@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "project": {
+    "id": "wanping-api-test",
+    "title": "万评 AI 测试与质量工程"
+  },
+  "required_reports": [
+    {
+      "id": "shop-query-performance",
+      "title": "商铺查询性能回归",
+      "kind": "shop_performance",
+      "source": "docs/test-results/day15-performance/shop-query-comparison.json",
+      "detail": "docs/test-results/day15-performance/shop-query-regression.md"
+    },
+    {
+      "id": "seckill-plus-performance",
+      "title": "秒杀 Plus 性能回归",
+      "kind": "seckill_performance",
+      "source": "docs/test-results/day15-performance/seckill-plus-comparison.json",
+      "detail": "docs/test-results/day15-performance/seckill-plus-regression.md"
+    }
+  ],
+  "optional_reports": [
+    {
+      "id": "ai-case-review",
+      "title": "AI Case 生成与人工评审",
+      "kind": "optional_document",
+      "source": "docs/test-results/day12-ai-case-review/review-summary.json",
+      "detail": "docs/test-results/day12-ai-case-review/review-summary.md"
+    },
+    {
+      "id": "ai-diagnosis-evaluation",
+      "title": "AI 失败诊断评测",
+      "kind": "optional_document",
+      "source": "docs/test-results/day13-ai-diagnosis/baseline-v2/diagnosis-evaluation.json",
+      "detail": "docs/test-results/day13-ai-diagnosis/baseline-v2/diagnosis-evaluation.md"
+    }
+  ]
+}

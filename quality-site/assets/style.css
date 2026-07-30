@@ -1,0 +1,177 @@
+:root {
+  font-family:
+    Inter,
+    "Noto Sans SC",
+    "Microsoft YaHei",
+    sans-serif;
+  color: #202124;
+  background: #f5f6f8;
+  line-height: 1.6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f6f8;
+}
+
+a {
+  color: #2457a7;
+}
+
+a:focus-visible {
+  outline: 3px solid #2457a7;
+  outline-offset: 3px;
+}
+
+.site-header {
+  padding: 44px 24px 36px;
+  background: #ffffff;
+  border-bottom: 1px solid #dde1e7;
+}
+
+.site-header-inner,
+.page-content {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.site-description {
+  max-width: 820px;
+  margin: 12px 0 0;
+  color: #596273;
+}
+
+.page-content {
+  padding: 28px 20px 56px;
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #dde1e7;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgb(0 0 0 / 5%);
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.status-pass {
+  color: #17633b;
+  background: #e6f5ec;
+}
+
+.status-warning {
+  color: #805500;
+  background: #fff2c7;
+}
+
+.status-fail {
+  color: #a51e29;
+  background: #fde7e9;
+}
+
+.status-observe,
+.status-unavailable {
+  color: #4d5666;
+  background: #eceff3;
+}
+
+.meta-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 16px;
+}
+
+.meta-list dt {
+  font-weight: 700;
+}
+
+.meta-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e3e6eb;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  background: #f7f8fa;
+}
+
+.notice {
+  padding: 14px 16px;
+  border-left: 4px solid #8b6f31;
+  background: #fff8df;
+}
+
+.site-footer {
+  padding: 28px 20px;
+  color: #697386;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding: 32px 18px 28px;
+  }
+
+  .page-content {
+    padding: 20px 14px 44px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  .meta-list {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
