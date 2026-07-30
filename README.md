@@ -1,5 +1,7 @@
 # 万评 AI 测试与质量工程
 
+[![AI Diagnosis Evaluation](https://github.com/huihuizhou00/wanping-api-test/actions/workflows/ai-diagnosis-eval.yml/badge.svg?branch=main)](https://github.com/huihuizhou00/wanping-api-test/actions/workflows/ai-diagnosis-eval.yml) [![Deterministic CI](https://github.com/huihuizhou00/wanping-api-test/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/huihuizhou00/wanping-api-test/actions/workflows/ci.yml) [![Quality Report CD](https://github.com/huihuizhou00/wanping-api-test/actions/workflows/quality-report-cd.yml/badge.svg?branch=main)](https://github.com/huihuizhou00/wanping-api-test/actions/workflows/quality-report-cd.yml)
+
 ## 项目简介
 
 本项目面向万评生活服务系统，构建覆盖 Java 接口自动化、AI 测试用例生成、失败诊断评测、JMeter 性能回归、CI 质量门禁和 GitHub Pages 质量报告发布的测试开发体系。
@@ -279,6 +281,3 @@ CD 不执行真实压测，不连接 MySQL、Redis、RocketMQ 或 Ollama，也�
 - 使用 `workflow_run.head_sha` 保证 CI/CD 发布版本一致；
 - 自动发布可访问、可追踪的 GitHub Pages 质量报告。
 
-## 简历表达
-
-> 为万评系统搭建覆盖接口自动化、AI 测试用例生成、失败诊断评测和性能回归的质量工程体系，通过 GitHub Actions 设置合并质量门禁，并在 `main` 验证成功后自动发布 GitHub Pages 质量报告，实现从测试设计、执行、诊断、评测到结果交付的 CI/CD 闭环。
