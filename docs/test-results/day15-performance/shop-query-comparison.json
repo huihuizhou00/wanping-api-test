@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "scenario": "shop-query",
+  "final_status": "PASS",
+  "exit_code": 0,
+  "baseline_status": "provisional",
+  "candidate_status": "provisional",
+  "load_model": {
+    "threads": 20,
+    "ramp_up_seconds": 2,
+    "loops_per_thread": 20,
+    "expected_samples": 400,
+    "warmup_samples": 20
+  },
+  "baseline_metrics": {
+    "sample_count": 400,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "throughput_rps": 209.205,
+    "mean_ms": 6.595,
+    "median_ms": 6.0,
+    "p90_ms": 8,
+    "p95_ms": 8,
+    "p99_ms": 16,
+    "max_ms": 57
+  },
+  "candidate_metrics": {
+    "sample_count": 400,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "throughput_rps": 213.447,
+    "mean_ms": 6.162,
+    "median_ms": 6.0,
+    "p90_ms": 7,
+    "p95_ms": 8,
+    "p99_ms": 9,
+    "max_ms": 57
+  },
+  "checks": {
+    "sample_count": {
+      "severity": "hard",
+      "baseline": 400,
+      "candidate": 400,
+      "change_ratio": null,
+      "threshold": "equal to 400",
+      "status": "PASS"
+    },
+    "error_rate": {
+      "severity": "hard",
+      "baseline": 0.0,
+      "candidate": 0.0,
+      "change_ratio": 0.0,
+      "threshold": "<= 1.00%",
+      "status": "PASS"
+    },
+    "throughput_rps": {
+      "severity": "hard",
+      "baseline": 209.205,
+      "candidate": 213.447,
+      "change_ratio": -0.020276762027676153,
+      "threshold": "decrease <= 15.00%",
+      "status": "PASS"
+    },
+    "p95_ms": {
+      "severity": "hard",
+      "baseline": 8,
+      "candidate": 8,
+      "change_ratio": 0.0,
+      "threshold": "increase <= 20.00%",
+      "status": "PASS"
+    },
+    "p99_ms": {
+      "severity": "warning",
+      "baseline": 16,
+      "candidate": 9,
+      "change_ratio": -0.4375,
+      "threshold": "increase <= 25.00%",
+      "status": "PASS"
+    },
+    "max_ms": {
+      "severity": "observe",
+      "baseline": 57,
+      "candidate": 57,
+      "change_ratio": 0.0,
+      "threshold": "observe only",
+      "status": "OBSERVE"
+    }
+  },
+  "environment": {
+    "baseline": {
+      "root_disk_usage_percent": 92,
+      "environment_warning": "root_disk_usage_high",
+      "jmeter_result_storage": "/mnt/wanping-performance"
+    },
+    "candidate": {
+      "root_disk_usage_percent": 92,
+      "environment_warning": "root_disk_usage_high",
+      "jmeter_result_storage": "/mnt/wanping-performance"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1000,10,Shop Query Request,200,OK,thread-1,text,true,,100,50,2,2,http://127.0.0.1:8082/shop/of/type,8,0,2
+1020,20,Shop Query Request,200,OK,thread-2,text,true,,100,50,2,2,http://127.0.0.1:8082/shop/of/type,15,0,3
+1040,30,Shop Query Request,500,Error,thread-1,text,false,assertion failed,100,50,2,2,http://127.0.0.1:8082/shop/of/type,25,0,4
+1060,40,Shop Query Request,200,OK,thread-2,text,true,,100,50,2,2,http://127.0.0.1:8082/shop/of/type,35,0,5

@@ -55,3 +55,19 @@ ai-case-generator/output-before-*/
 
 # AI failure diagnosis generated artifacts
 /ai-case-generator/output/failure-diagnosis/
+
+# JMeter generated performance artifacts
+/performance/results/
+
+# JMeter local user sessions and tokens
+/performance/jmeter/data/*.csv
+!/performance/jmeter/data/.gitkeep
+
+# Historical JMeter plans are local references only
+/performance/jmeter/reference/
+
+# Local JMeter runtime log
+/jmeter.log
+
+# Local investigation and execution logs
+/output/

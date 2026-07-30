@@ -1,0 +1,23 @@
+{
+  "scenario": "shop-query",
+  "run_type": "baseline",
+  "source_jtl": "/mnt/wanping-performance/runs/baseline-shop-query-round2-20260728-154558/run/result.jtl",
+  "metrics": {
+    "sample_count": 400,
+    "success_count": 400,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "duration_seconds": 1.857,
+    "throughput_rps": 215.401,
+    "min_ms": 3,
+    "mean_ms": 6.595,
+    "median_ms": 6.0,
+    "p90_ms": 8,
+    "p95_ms": 8,
+    "p99_ms": 16,
+    "max_ms": 79,
+    "response_codes": {
+      "200": 400
+    }
+  }
+}
