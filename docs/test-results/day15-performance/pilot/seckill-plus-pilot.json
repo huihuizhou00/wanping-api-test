@@ -1,0 +1,51 @@
+{
+  "scenario": "seckill-plus",
+  "run_type": "pilot",
+  "status": "PASS",
+  "target": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 8082,
+    "voucher_id": 900013,
+    "redis_database": 1
+  },
+  "load_model": {
+    "threads": 5,
+    "ramp_up_seconds": 1,
+    "loops_per_thread": 1,
+    "unique_tokens": 5,
+    "expected_samples": 5
+  },
+  "metrics": {
+    "sample_count": 5,
+    "success_count": 5,
+    "error_count": 0,
+    "min_ms": 3010,
+    "median_ms": 3014,
+    "p95_ms": 3207,
+    "max_ms": 3207
+  },
+  "business_consistency": {
+    "voucher_id": 900013,
+    "db_stock": 0,
+    "order_count": 5,
+    "distinct_user_count": 5,
+    "duplicate_user_count": 0,
+    "deduct_log_count": 5,
+    "restore_log_count": 0,
+    "verify_open_count": 0,
+    "verify_success_count": 0,
+    "recovery_task_count": 0,
+    "reconcile_task_count": 0,
+    "redis_stock": 0,
+    "redis_order_count": 5,
+    "redis_trace_count": 5,
+    "request_key_count": 0
+  },
+  "raw_artifact_directory": "/mnt/wanping-performance/runs/seckill-plus-pilot-20260730-135635",
+  "notes": [
+    "Each token was used once to preserve the one-user-one-order contract.",
+    "Successful requests include an approximately three-second asynchronous order confirmation wait.",
+    "This pilot validates the end-to-end chain and is not a formal performance baseline."
+  ]
+}
