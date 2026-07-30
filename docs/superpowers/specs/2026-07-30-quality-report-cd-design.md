@@ -128,7 +128,6 @@ Pages 展示 Commit
 使用 GitHub 官方 Pages Actions：
 
 ```text
-actions/configure-pages
 actions/upload-pages-artifact
 actions/deploy-pages
 ```
