@@ -810,3 +810,660 @@ def adapt_optional_document(
             report
         ),
     }
+
+
+import shutil
+from html import escape
+from urllib.parse import urlsplit
+
+
+STATUS_PRIORITY = {
+    "PASS": 0,
+    "OBSERVE": 1,
+    "WARNING": 2,
+    "FAIL": 3,
+}
+
+METRIC_LABELS = {
+    "sample_count": "样本数",
+    "success_count": "成功数",
+    "error_count": "错误数",
+    "error_rate": "错误率",
+    "duration_seconds": "持续时间（秒）",
+    "throughput_rps": "吞吐量（RPS）",
+    "mean_ms": "平均响应时间（ms）",
+    "median_ms": "中位响应时间（ms）",
+    "p90_ms": "P90（ms）",
+    "p95_ms": "P95（ms）",
+    "p99_ms": "P99（ms）",
+    "max_ms": "最大响应时间（ms）",
+}
+
+BUSINESS_LABELS = {
+    "voucher_id": "测试券 ID",
+    "db_stock": "数据库库存",
+    "order_count": "订单数",
+    "distinct_user_count": "独立用户数",
+    "duplicate_user_count": "重复用户数",
+    "deduct_log_count": "库存扣减日志数",
+    "restore_log_count": "库存恢复日志数",
+    "verify_open_count": "待验证记录数",
+    "recovery_task_count": "恢复任务数",
+    "reconcile_task_count": "对账任务数",
+    "redis_stock": "Redis 库存",
+    "redis_order_count": "Redis 订单用户数",
+    "redis_trace_count": "Redis Trace 数",
+    "request_key_count": "残留请求键数",
+}
+
+
+def calculate_overall_status(
+    required_reports: list[dict[str, Any]],
+) -> str:
+    if not required_reports:
+        raise QualitySiteError(
+            "至少需要一个必需报告"
+        )
+
+    highest = "PASS"
+
+    for report in required_reports:
+        status = require_status(
+            report.get("status"),
+            "required_report.status",
+        )
+
+        if status == "UNAVAILABLE":
+            raise QualitySiteError(
+                "必需报告不能为UNAVAILABLE"
+            )
+
+        if (
+            STATUS_PRIORITY.get(status, 0)
+            > STATUS_PRIORITY.get(highest, 0)
+        ):
+            highest = status
+
+    return highest
+
+
+def validate_ci_url(url: Any) -> str:
+    if url in (None, ""):
+        return ""
+
+    normalized = require_non_empty_string(
+        url,
+        "CI链接",
+    )
+    parsed = urlsplit(normalized)
+
+    if (
+        parsed.scheme not in {"http", "https"}
+        or not parsed.netloc
+    ):
+        raise QualitySiteError(
+            f"CI链接不安全：{normalized}"
+        )
+
+    return normalized
+
+
+def resolve_optional_file(
+    repository_root: Path,
+    relative_path: str,
+) -> Path | None:
+    path_text = require_non_empty_string(
+        relative_path,
+        "可选报告路径",
+    )
+
+    native = Path(path_text)
+    windows = PureWindowsPath(path_text)
+
+    if (
+        native.is_absolute()
+        or windows.is_absolute()
+        or bool(windows.drive)
+    ):
+        raise QualitySiteError(
+            "可选报告路径必须是相对路径："
+            f"{path_text}"
+        )
+
+    normalized = path_text.replace("\\", "/")
+    parts = PurePosixPath(normalized).parts
+
+    if ".." in parts:
+        raise QualitySiteError(
+            "可选报告路径不能包含上级目录："
+            f"{path_text}"
+        )
+
+    root = repository_root.resolve(
+        strict=True
+    )
+    candidate = root.joinpath(*parts)
+
+    if not candidate.exists():
+        return None
+
+    return resolve_safe_file(
+        root,
+        path_text,
+    )
+
+
+def format_value(value: Any) -> str:
+    if value is None:
+        return "—"
+
+    if isinstance(value, float):
+        return f"{value:.6g}"
+
+    return str(value)
+
+
+def status_badge(status: str) -> str:
+    normalized = require_status(
+        status,
+        "status",
+    )
+
+    return (
+        '<span class="status '
+        f'status-{normalized.lower()}">'
+        f"{escape(normalized)}"
+        "</span>"
+    )
+
+
+def render_metrics_table(
+    report: dict[str, Any],
+) -> str:
+    baseline = report["baseline_metrics"]
+    candidate = report["candidate_metrics"]
+
+    rows = []
+
+    for name in METRIC_LABELS:
+        if (
+            name not in baseline
+            or name not in candidate
+        ):
+            continue
+
+        rows.append(
+            "<tr>"
+            f"<th>{escape(METRIC_LABELS[name])}</th>"
+            f"<td>{escape(format_value(baseline[name]))}</td>"
+            f"<td>{escape(format_value(candidate[name]))}</td>"
+            "</tr>"
+        )
+
+    return (
+        '<div class="table-wrapper">'
+        "<table>"
+        "<thead><tr>"
+        "<th>指标</th>"
+        "<th>Baseline</th>"
+        "<th>Candidate</th>"
+        "</tr></thead>"
+        "<tbody>"
+        + "".join(rows)
+        + "</tbody></table></div>"
+    )
+
+
+def render_checks_table(
+    report: dict[str, Any],
+) -> str:
+    rows = []
+
+    for name, check in report["checks"].items():
+        rows.append(
+            "<tr>"
+            f"<th>{escape(METRIC_LABELS.get(name, name))}</th>"
+            f"<td>{escape(format_value(check.get('baseline')))}</td>"
+            f"<td>{escape(format_value(check.get('candidate')))}</td>"
+            f"<td>{escape(format_value(check.get('threshold')))}</td>"
+            f"<td>{status_badge(check['status'])}</td>"
+            "</tr>"
+        )
+
+    return (
+        "<h4>质量门禁</h4>"
+        '<div class="table-wrapper">'
+        "<table>"
+        "<thead><tr>"
+        "<th>检查项</th>"
+        "<th>Baseline</th>"
+        "<th>Candidate</th>"
+        "<th>阈值</th>"
+        "<th>状态</th>"
+        "</tr></thead>"
+        "<tbody>"
+        + "".join(rows)
+        + "</tbody></table></div>"
+    )
+
+
+def render_business_table(
+    report: dict[str, Any],
+) -> str:
+    checks = report.get("business_checks")
+
+    if not checks:
+        return ""
+
+    rows = []
+
+    for name, check in checks.items():
+        rows.append(
+            "<tr>"
+            f"<th>{escape(BUSINESS_LABELS.get(name, name))}</th>"
+            f"<td>{escape(format_value(check['candidate']))}</td>"
+            f"<td>{escape(format_value(check['expected']))}</td>"
+            f"<td>{status_badge(check['status'])}</td>"
+            "</tr>"
+        )
+
+    return (
+        "<h4>业务一致性</h4>"
+        '<div class="table-wrapper">'
+        "<table>"
+        "<thead><tr>"
+        "<th>检查项</th>"
+        "<th>Candidate</th>"
+        "<th>期望值</th>"
+        "<th>状态</th>"
+        "</tr></thead>"
+        "<tbody>"
+        + "".join(rows)
+        + "</tbody></table></div>"
+    )
+
+
+def render_performance_card(
+    report: dict[str, Any],
+) -> str:
+    notice = ""
+
+    if report["kind"] == "seckill_performance":
+        notice = (
+            '<p class="notice">'
+            "当前约 3 秒响应时间包含应用层"
+            "异步订单确认等待，不应直接解释为 "
+            "Lua 或 Redis 原子校验本身耗时。"
+            "</p>"
+        )
+
+    return (
+        '<article class="card">'
+        f"<h3>{escape(report['title'])}</h3>"
+        f"<p>{status_badge(report['status'])}</p>"
+        f"{render_metrics_table(report)}"
+        f"{render_checks_table(report)}"
+        f"{render_business_table(report)}"
+        f"{notice}"
+        '<p><a href="'
+        f"{escape(report['detail_href'], quote=True)}"
+        '">查看版本化明细报告</a></p>'
+        "</article>"
+    )
+
+
+def render_optional_card(
+    report: dict[str, Any],
+) -> str:
+    items = []
+
+    for key, value in report["summary"].items():
+        items.append(
+            "<dt>"
+            f"{escape(str(key))}"
+            "</dt><dd>"
+            f"{escape(format_value(value))}"
+            "</dd>"
+        )
+
+    summary = (
+        '<dl class="meta-list">'
+        + "".join(items)
+        + "</dl>"
+        if items
+        else "<p>当前版本未提供可展示的结构化指标。</p>"
+    )
+
+    detail = ""
+
+    if (
+        report.get("available")
+        and report.get("detail_href")
+    ):
+        detail = (
+            '<p><a href="'
+            f"{escape(report['detail_href'], quote=True)}"
+            '">查看版本化明细报告</a></p>'
+        )
+
+    return (
+        '<article class="card">'
+        f"<h3>{escape(report['title'])}</h3>"
+        f"<p>{status_badge(report['status'])}</p>"
+        f"{summary}"
+        f"{detail}"
+        "</article>"
+    )
+
+
+def render_index_html(
+    project: dict[str, Any],
+    reports: list[dict[str, Any]],
+    metadata: dict[str, Any],
+) -> str:
+    title = require_non_empty_string(
+        project.get("title"),
+        "project.title",
+    )
+
+    required = [
+        report
+        for report in reports
+        if report["kind"]
+        in {
+            "shop_performance",
+            "seckill_performance",
+        }
+    ]
+
+    optional = [
+        report
+        for report in reports
+        if report["kind"]
+        == "optional_document"
+    ]
+
+    performance_cards = "".join(
+        render_performance_card(report)
+        for report in required
+    )
+
+    optional_cards = "".join(
+        render_optional_card(report)
+        for report in optional
+    )
+
+    ci_url = metadata["ci_run_url"]
+
+    ci_link = (
+        '<a href="'
+        f"{escape(ci_url, quote=True)}"
+        '">查看上游 CI</a>'
+        if ci_url
+        else "本地构建，无上游 CI 链接"
+    )
+
+    return f"""<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <title>{escape(title)}｜统一质量报告</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <h1 class="site-title">{escape(title)}</h1>
+      <p class="site-description">
+        汇总接口自动化、AI 测试、性能回归和业务一致性结果。
+      </p>
+      <p>{status_badge(metadata["overall_status"])}</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="section">
+      <article class="card">
+        <h2>发布信息</h2>
+        <dl class="meta-list">
+          <dt>Commit</dt>
+          <dd>{escape(metadata["commit_sha"])}</dd>
+          <dt>分支</dt>
+          <dd>{escape(metadata["branch"])}</dd>
+          <dt>发布方式</dt>
+          <dd>{escape(metadata["publish_mode"])}</dd>
+          <dt>发布时间</dt>
+          <dd>{escape(metadata["published_at"])}</dd>
+          <dt>上游 CI</dt>
+          <dd>{ci_link}</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2>性能回归与一致性</h2>
+      <div class="card-grid">
+        {performance_cards}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>AI 测试结果</h2>
+      <div class="card-grid">
+        {optional_cards}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    由版本化测试报告自动生成，不执行在线压测或模型调用。
+  </footer>
+</body>
+</html>
+"""
+
+
+def validate_metadata(
+    metadata: dict[str, Any],
+) -> dict[str, str]:
+    required_fields = (
+        "commit_sha",
+        "branch",
+        "publish_mode",
+        "published_at",
+        "repository",
+    )
+
+    result = {}
+
+    for field_name in required_fields:
+        result[field_name] = (
+            require_non_empty_string(
+                metadata.get(field_name),
+                field_name,
+            )
+        )
+
+    result["ci_run_url"] = validate_ci_url(
+        metadata.get("ci_run_url", "")
+    )
+
+    return result
+
+
+def build_site(
+    repository_root: Path,
+    manifest_path: Path,
+    output_directory: Path,
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    root = repository_root.resolve(
+        strict=True
+    )
+
+    normalized_metadata = validate_metadata(
+        metadata
+    )
+
+    manifest = load_manifest(
+        manifest_path
+    )
+
+    if output_directory.is_symlink():
+        raise QualitySiteError(
+            "输出目录不能是符号链接"
+        )
+
+    if output_directory.exists():
+        shutil.rmtree(output_directory)
+
+    assets_output = (
+        output_directory / "assets"
+    )
+    reports_output = (
+        output_directory / "reports"
+    )
+
+    assets_output.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+    reports_output.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    style_source = resolve_safe_file(
+        root,
+        "quality-site/assets/style.css",
+    )
+    shutil.copyfile(
+        style_source,
+        assets_output / "style.css",
+    )
+
+    adapted_reports = []
+
+    for entry in manifest["required_reports"]:
+        source = resolve_safe_file(
+            root,
+            entry["source"],
+        )
+        detail = resolve_safe_file(
+            root,
+            entry["detail"],
+        )
+
+        output_name = f"{entry['id']}.md"
+        detail_href = f"reports/{output_name}"
+
+        shutil.copyfile(
+            detail,
+            reports_output / output_name,
+        )
+
+        raw_report = load_json_report(source)
+
+        if entry["kind"] == "shop_performance":
+            adapted = adapt_shop_performance(
+                raw_report,
+                entry["title"],
+                detail_href,
+            )
+        elif entry["kind"] == "seckill_performance":
+            adapted = adapt_seckill_performance(
+                raw_report,
+                entry["title"],
+                detail_href,
+            )
+        else:
+            raise QualitySiteError(
+                "不支持的必需报告类型："
+                f"{entry['kind']}"
+            )
+
+        adapted_reports.append(adapted)
+
+    for entry in manifest["optional_reports"]:
+        source = resolve_optional_file(
+            root,
+            entry["source"],
+        )
+        detail = resolve_optional_file(
+            root,
+            entry["detail"],
+        )
+
+        detail_href = None
+
+        if source is not None and detail is not None:
+            output_name = f"{entry['id']}.md"
+            detail_href = f"reports/{output_name}"
+
+            shutil.copyfile(
+                detail,
+                reports_output / output_name,
+            )
+
+        adapted_reports.append(
+            adapt_optional_document(
+                source,
+                entry["title"],
+                detail_href,
+            )
+        )
+
+    required_reports = [
+        report
+        for report in adapted_reports
+        if report["kind"]
+        in {
+            "shop_performance",
+            "seckill_performance",
+        }
+    ]
+
+    overall_status = calculate_overall_status(
+        required_reports
+    )
+
+    build_metadata = {
+        "schema_version": 1,
+        **normalized_metadata,
+        "required_report_count": len(
+            manifest["required_reports"]
+        ),
+        "optional_report_count": len(
+            manifest["optional_reports"]
+        ),
+        "overall_status": overall_status,
+    }
+
+    index_html = render_index_html(
+        manifest["project"],
+        adapted_reports,
+        build_metadata,
+    )
+
+    (output_directory / "index.html").write_text(
+        index_html,
+        encoding="utf-8",
+    )
+
+    (
+        output_directory
+        / "build-metadata.json"
+    ).write_text(
+        json.dumps(
+            build_metadata,
+            ensure_ascii=False,
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
+    )
+
+    return build_metadata
